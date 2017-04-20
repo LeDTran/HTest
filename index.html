@@ -5,22 +5,44 @@
     <link rel="stylesheet" href="styles/style.css" />
     <script src="scripts/player.js"></script>
     <script src="scripts/main.js"></script>
+
   </head>
 
-  <body ng-app="app" ng-controller="demoController">
+  <body ng-app="app" ng-controller="lineupController">
 
     <center><h1>Build Your Roster</h1></center>
 
+    Select Number of Innings:
+    <select ng-model="numInnings" ng-options="n for n in numInningSelect" default="None">
+    </select> {{numInnings}}
+    <br><br>
+
+
     <fieldset  data-ng-repeat="player in players track by $index">
-        <input type="text" ng-model="player.name" name="" placeholder="">{{player.psyhp}} ---> index: {{$index}}
-        <button ng-click="removePlayer($index)">Remove Player</button>
-     </fieldset>
+      <input type="text" ng-model="player.name" name="" placeholder=""><!--psyhp: {{player.psyhp}}  index: {{$index}}-->
+      Inning Pitch: <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect">
+      </select>{{player.inningPitch}}
+      
+
+
+      <label>Pitcher:
+        <input type="checkbox" ng-model="player.preferPi">
+      </label><br/>
+      <label>Catcher:
+        <input type="checkbox" ng-model="player.preferCa">
+      </label><br/>
+
+
+
+
+      <button ng-click="removePlayer($index)">Remove Player</button>
+    </fieldset>
+
     <button ng-click="addNewPlayer()">Add Player</button>    
 
-    <div class="totalleft">
-      {{numLeft()}} out of {{players.length}} remaining
-      <button id="clearbutton" type="submit" ng-click="clearItems()" ng-show="showClear()">Clear {{numCompleted()}} players</button>
-    </div>
+    <br>
+
+
   
   </body>
 </html>

@@ -28,63 +28,57 @@
 var app = angular.module('app', []);
 
 //controllers
-app.controller('demoController', function($scope) {
-    // initial items
-    $scope.players = [
-    ];
-    var firstPlayer = new Player("Player" + $scope.players.length, $scope.players.length);
-    $scope.players.push(firstPlayer);
+app.controller('lineupController', function($scope) {
+  var Player = function(name)
+  {   this.name = name;
+      this.psyhp = 100;
+      this.coghp = 200;
+      this.physhp = 300;
+      this.inningPitch = 'None';
 
-        // add an item
-    $scope.addNewPlayer = function() {
-      var newPlayer = new Player("Player" + $scope.players.length, 20);
-      //newPlayer.name = "Player" + $scope.players.length;
-      newPlayer.name = $scope.players[$scope.players.length-1].name + $scope.players.length;
-      newPlayer.psyhp = $scope.players.length;
-      $scope.players.push(newPlayer);
-    };
+      //Prefer
+      this.preferPi = true;
+      this.preferCa = false;
+      this.prefer1B = false;
+      this.prefer2B = false;
+      this.prefer3B = false;
+      this.preferSS = false;
+      this.preferLF = false;
+      this.preferCF = false;
+      this.preferRF = false;
 
-    $scope.removePlayer = function(playerIndex){
-      $scope.players.splice(playerIndex, 1);
-    }
+      //Avoid
+      this.avoidPi = false;
+      this.avoidCa = false;
+      this.avoid1B = false;
+      this.avoid2B = false;
+      this.avoid3B = false;
+      this.avoidSS = false;
+      this.avoidLF = false;
+      this.avoidCF = false;
+      this.avoidRF = false;
+  }
 
-    //only 
-    $scope.markAll = function(allChecked) {
-      //$scope.items.splice(index, 1);
-      for(var i = 0; i < $scope.players.length; i++){
-        //$scope.items[i].done=true;
-        $scope.players[i].done=allChecked;
-      }
-    };
-    
-    $scope.numLeft = function(){
-      var x = 0;
-      for(var j = 0; j < $scope.players.length; j++){
-        if($scope.players[j].done==false){
-          x++;
-        }
-      }
-      return x;
-    }
-    
-    $scope.clearItems = function(){
-      for(var k = 0; k < $scope.players.length; k++){
-        if($scope.players[k].done==true){
-          $scope.players.splice(k, 1);
-          //need to decrement k b/c splice shifts the index
-          k--;
-        }
-      }
-    }
-    
-    $scope.showClear = function(){
-      for(var l = 0; l < $scope.players.length; l++){
-        if($scope.players[l].done==true){
-          return true;
-        }
-      }
-      return false;
-    }
-    
-    
+
+  // initial items
+  $scope.players = [];
+  var firstPlayer = new Player('New Player');
+  $scope.players.push(firstPlayer);
+  $scope.numInningSelect = [1,2,3,4,5,6];
+  $scope.numInnings = 1;
+  $scope.inningPitchSelect = ['None',1,2,3,4,5,6];
+
+      // add an item
+  $scope.addNewPlayer = function() {
+    var newPlayer = new Player("New Player");
+    //newPlayer.name = "Player" + $scope.players.length;
+    //newPlayer.name = $scope.players[$scope.players.length-1].name + $scope.players.length;
+    newPlayer.psyhp = $scope.players.length;
+    $scope.players.push(newPlayer);
+  };
+
+  $scope.removePlayer = function(playerIndex){
+    $scope.players.splice(playerIndex, 1);
+  }
+  
 });
