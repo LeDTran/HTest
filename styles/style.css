@@ -1,0 +1,41 @@
+/* Styles go here */
+/*LOOOOOOK UP class vs id*/
+/*IMPORTANT!!!!! classes need to be before id selectors*/
+#textbox {
+  width:500px;
+  height:50px;
+  font-size:160%;
+}
+
+.tasklist {
+  list-style-type:none;
+  padding-left: 0px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+  text-indent: 0px;
+  font-size:200%;
+}
+#done-true {
+  text-decoration: line-through;
+  color: grey;
+}
+
+.totalleft {
+  background-color: #eeeeee;
+  color: #505863;
+  height: 30px;
+  line-height: 30px;
+}
+
+#clearbutton{
+  font-size: 50%;
+  border: none;
+  background-color: #d6d6d6;
+  color: #505863;
+  vertical-align: middle;
+  margin-left:325px;
+}
+
+
+
+

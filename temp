@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <link rel="stylesheet" href="styles/style.css" />
+    <script src="scripts/player.js"></script>
+    <script src="scripts/main.js"></script>
+  </head>
+
+  <body ng-app="app" ng-controller="demoController">
+
+    <center><h1>Build Your Roster</h1></center>
+
+    <fieldset  data-ng-repeat="player in players">
+        <input type="text" ng-model="player.name" name="" placeholder="">
+        <button ng-show="$last" ng-click="removeChoice()">-</button>
+     </fieldset>
+    <button ng-click="addNewPlayer()">Add Player</button>
+
+
+
+    <form ng-submit="addPlayer()">
+      <input id="textbox" type="text" ng-model="input" placeholder="Add New Player Name">
+      <!--<button type="submit" ng-click="addPlayer()">Add task</button>-->
+    </form>
+    <input type="checkbox" ng-model="allChecked" ng-change="markAll(allChecked)">Mark all as complete<br>
+
+    <ul class="tasklist" >
+      <li ng-repeat="player in players">
+        <label>{{player.name}} - {{player.psyhp}}</label>
+        <hr>
+      </li>
+    </ul>
+    <!--<br>-->
+    
+
+    <div class="totalleft">
+      {{numLeft()}} out of {{players.length}} remaining
+      <button id="clearbutton" type="submit" ng-click="clearItems()" ng-show="showClear()">Clear {{numCompleted()}} players</button>
+    </div>
+  
+  </body>
+</html>
