@@ -24,14 +24,29 @@
       </select>{{player.inningPitch}}
       
 
+      <div class="posPreference">
+        <label><input type="checkbox" ng-model="player.preferPos[1]"></label>Pitcher (1)
+        <label><input type="checkbox" ng-model="player.preferPos[2]"></label>Catcher (2)<br>
+        <label><input type="checkbox" ng-model="player.preferPos[3]"></label>First Base (3)
+        <label><input type="checkbox" ng-model="player.preferPos[4]"></label>Second Base (4)
+        <label><input type="checkbox" ng-model="player.preferPos[5]"></label>Third Base (5)<br>
+        <label><input type="checkbox" ng-model="player.preferPos[6]"></label>Short Stop (6)<br>
+        <label><input type="checkbox" ng-model="player.preferPos[7]"></label>Left Field (7)
+        <label><input type="checkbox" ng-model="player.preferPos[8]"></label>Center Field(8)
+        <label><input type="checkbox" ng-model="player.preferPos[9]"></label>Right Field (9)<br>
+      </div>
 
-      <label>Pitcher:
-        <input type="checkbox" ng-model="player.preferPi">
-      </label><br/>
-      <label>Catcher:
-        <input type="checkbox" ng-model="player.preferCa">
-      </label><br/>
-
+      <div class="posPreference">
+        <label><input type="checkbox" ng-model="player.avoidPos[1]"></label>Pitcher (1)
+        <label><input type="checkbox" ng-model="player.avoidPos[2]"></label>Catcher (2)<br>
+        <label><input type="checkbox" ng-model="player.avoidPos[3]"></label>First Base (3)
+        <label><input type="checkbox" ng-model="player.avoidPos[4]"></label>Second Base (4)
+        <label><input type="checkbox" ng-model="player.avoidPos[5]"></label>Third Base (5)<br>
+        <label><input type="checkbox" ng-model="player.avoidPos[6]"></label>Short Stop (6)<br>
+        <label><input type="checkbox" ng-model="player.avoidPos[7]"></label>Left Field (7)
+        <label><input type="checkbox" ng-model="player.avoidPos[8]"></label>Center Field(8)
+        <label><input type="checkbox" ng-model="player.avoidPos[9]"></label>Right Field (9)<br>
+      </div>
 
 
 
