@@ -19,11 +19,18 @@
 
 
     <fieldset  data-ng-repeat="player in players track by $index">
-      <input type="text" ng-model="player.name" name="" placeholder=""><!--psyhp: {{player.psyhp}}  index: {{$index}}-->
-      Inning Pitch: <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect">
-      </select>{{player.inningPitch}}
-      
+      <div id="playerName">  
+        <input type="text" ng-model="player.name" name="" placeholder=""><!--psyhp: {{player.psyhp}}  index: {{$index}}-->
+      </div>
 
+            <button id="removeButton" ng-click="removePlayer($index)">Remove Player</button><br>
+
+
+      <div id="inningPitch">
+        Inning to Pitch: <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect"></select><br>
+      </div>
+
+      Preferred Positions
       <div class="posPreference">
         <label><input type="checkbox" ng-model="player.preferPos[1]"></label>Pitcher (1)
         <label><input type="checkbox" ng-model="player.preferPos[2]"></label>Catcher (2)<br>
@@ -36,6 +43,7 @@
         <label><input type="checkbox" ng-model="player.preferPos[9]"></label>Right Field (9)<br>
       </div>
 
+      Positions to Avoid
       <div class="posPreference">
         <label><input type="checkbox" ng-model="player.avoidPos[1]"></label>Pitcher (1)
         <label><input type="checkbox" ng-model="player.avoidPos[2]"></label>Catcher (2)<br>
@@ -50,7 +58,6 @@
 
 
 
-      <button ng-click="removePlayer($index)">Remove Player</button>
     </fieldset>
 
     <button ng-click="addNewPlayer()">Add Player</button>    

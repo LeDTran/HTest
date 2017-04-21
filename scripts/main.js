@@ -30,8 +30,6 @@ var app = angular.module('app', []);
 //controllers
 app.controller('lineupController', function($scope) {
 
-  console.log('inside main.js');
-
 
   // initial items
   $scope.players = [];

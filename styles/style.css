@@ -5,6 +5,21 @@
   vertical-align: top;
   display: inline-block;
   border: 1px solid black;
+    margin:10px;
+}
+
+#playerName{
+  display: inline-block;
+}
+
+#inningPitch{
+  display: inline-block;
+  margin:10px;
+}
+
+#removeButton{
+  display: inline;
+
 }
 
 
