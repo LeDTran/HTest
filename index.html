@@ -13,7 +13,7 @@
     <center><h1>Build Your Roster</h1></center>
 
     Select Number of Innings:
-    <select ng-model="numInnings" ng-options="n for n in numInningSelect" default="None">
+    <select ng-model="numInnings" ng-options="n for n in numInningSelect">
     </select> {{numInnings}}
     <br><br>
 
@@ -22,15 +22,12 @@
       <div id="playerName">  
         <input type="text" ng-model="player.name" name="" placeholder=""><!--psyhp: {{player.psyhp}}  index: {{$index}}-->
       </div>
-
-            <button id="removeButton" ng-click="removePlayer($index)">Remove Player</button><br>
-
-
+      <button id="removeButton" ng-click="removePlayer($index)">Remove Player</button><br>
       <div id="inningPitch">
         Inning to Pitch: <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect"></select><br>
       </div>
 
-      Preferred Positions
+      Preferred Positions:
       <div class="posPreference">
         <label><input type="checkbox" ng-model="player.preferPos[1]"></label>Pitcher (1)
         <label><input type="checkbox" ng-model="player.preferPos[2]"></label>Catcher (2)<br>
@@ -43,7 +40,7 @@
         <label><input type="checkbox" ng-model="player.preferPos[9]"></label>Right Field (9)<br>
       </div>
 
-      Positions to Avoid
+      Positions to Avoid:
       <div class="posPreference">
         <label><input type="checkbox" ng-model="player.avoidPos[1]"></label>Pitcher (1)
         <label><input type="checkbox" ng-model="player.avoidPos[2]"></label>Catcher (2)<br>
@@ -60,11 +57,16 @@
 
     </fieldset>
 
-    <button ng-click="addNewPlayer()">Add Player</button>    
+    <button ng-click="addNewPlayer()">Add Player</button><br><br>    
 
-    <br>
+    <button ng-click="buildLineups()">Build Your Lineups</button><br><br>
 
 
+    <div data-ng-repeat="x in printInnings">
+      <div data-ng-repeat="player in x">
+        {{player.name}}
+      </div><br><br>  
+    </div>  
   
   </body>
 </html>

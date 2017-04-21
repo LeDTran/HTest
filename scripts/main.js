@@ -33,11 +33,15 @@ app.controller('lineupController', function($scope) {
 
   // initial items
   $scope.players = [];
-  var firstPlayer = new Player('New Player');
-  $scope.players.push(firstPlayer);
+  // var firstPlayer = new Player('New Player');
+  // $scope.players.push(firstPlayer);
+  $scope.players = initializePlayers();
   $scope.numInningSelect = [1,2,3,4,5,6];
-  $scope.numInnings = 1;
+  $scope.numInnings = 6;
   $scope.inningPitchSelect = ['None',1,2,3,4,5,6];
+  $scope.printInnings=[];
+
+  $scope.listPitchers=[];
 
       // add an item
   $scope.addNewPlayer = function() {
@@ -51,5 +55,68 @@ app.controller('lineupController', function($scope) {
   $scope.removePlayer = function(playerIndex){
     $scope.players.splice(playerIndex, 1);
   }
+
+//write general function to get player
+
+  function assignPosition(){
+    return 5;
+  }
+
   
+  $scope.buildLineups = function(){
+    $scope.listPitchers = [];
+
+    // $scope.listPitchers = $scope.players.filter(function (abc) {
+    // return (abc.preferPos[1] == true);
+    // });
+
+    // var testArray = [];
+    // testArray.push($scope.players[0]);
+    // testArray[0].name = "Hello";
+    // console.log('NAME: '+ $scope.players[0].name);
+
+
+    var num = assignPosition();
+    console.log('inside buildlineups' + num);
+    $scope.printInnings = [];
+
+
+
+    //i = innings
+    //j = positions [0,1,2,3,4,5,6,7,8,9]
+
+
+  //   var pos = $scope.players.map(function(e) { return e.name; }).indexOf('P8');
+
+  //   console.log("pos:" + pos);
+
+  //   for(var i = 0; i < $scope.numInnings; i++){
+  //     var currInning = ['blank'];
+
+  //     for(var j = 0; j < 10; j++){
+  //       //get pitcher
+  //       var viablePitchers = $scope.players.filter(function (pi) {return (pi.posPlaytime[1] < 3);});
+  //       var index = 0;
+
+  //       do {
+  //         index = Math.floor(Math.random()*viablePitchers.length)
+  //       }
+  //       while ();
+
+
+  //       currInning.push(viablePitchers[index]);
+
+
+
+
+
+
+
+  //       currInning.push($scope.players[j]);
+  //     }
+  //     $scope.printInnings.push(currInning);
+  //   }
+
+  }
+
 });

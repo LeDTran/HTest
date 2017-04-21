@@ -13,3 +13,22 @@ Whether or not it would accurately fulfill the secondary conditions
 
 Bug fixes?
 -Right now, allow pitch only once? 
+
+
+Need to solve algorithm:
+Do one aspect at a time
+As time goes on and there are no results, try to incorporate only minimum
+
+object database might be useful. Unique keys makes doing things easy
+
+
+make copy of master list
+
+select and slice from 2nd list to put into inningPos list
+
+use filled inningpos list to update master list attributes
+
+priority system for preferences
+  -high, mid, low priority
+priority system for AA rules
+  -give priority to those who havent fulfilled 2IF 1OF
