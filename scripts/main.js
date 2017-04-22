@@ -40,8 +40,9 @@ app.controller('lineupController', function($scope) {
   $scope.numInnings = 6;
   $scope.inningPitchSelect = ['None',1,2,3,4,5,6];
   $scope.printInnings=[];
-
   $scope.listPitchers=[];
+
+  $scope.page = 'editRoster';
 
       // add an item
   $scope.addNewPlayer = function() {
@@ -62,60 +63,71 @@ app.controller('lineupController', function($scope) {
     return 5;
   }
 
+  function getCurrInning(group1, group2, group3){
+    var currInning = [];
+
+    currInning.push(group1[0]);
+    currInning.push(group1[1]);
+    currInning.push(group2[0]);
+    currInning.push(group2[1]);
+    currInning.push(group3[0]);
+    currInning.push(group3[1]);
+
+    currInning.push(group1[2]);
+    currInning.push(group2[2]);
+    currInning.push(group3[2]);
+
+    $scope.printInnings.push(currInning);
+
+  }
+
+  function rotateGroup(currGroup){
+    currGroup.push(currGroup[0]);
+    currGroup.shift();
+    return currGroup;
+  }
+
+    $sc.displayLineup = function(){
+        $scope.page = 'displayLineup';
+    }
+
+    $sc.toEditRoster = function(index){
+        $scope.page = 'editRoster';
+    }
+
   
   $scope.buildLineups = function(){
     $scope.listPitchers = [];
 
-    // $scope.listPitchers = $scope.players.filter(function (abc) {
-    // return (abc.preferPos[1] == true);
-    // });
+    //pos 1,2,7 (Ca, Pi, LF)
+    var group1 = [];
+    //pos 3,4,8 (1B, 2B CF)
+    var group2 = [];
+    //pos 5,6,9 (3B, SS, RF)
+    var group3 = [];
 
-    // var testArray = [];
-    // testArray.push($scope.players[0]);
-    // testArray[0].name = "Hello";
-    // console.log('NAME: '+ $scope.players[0].name);
+    //push players into group slots
+    group1.push($scope.players[0]);
+    group1.push($scope.players[1]);
+    group1.push($scope.players[6]);
 
+    group2.push($scope.players[2]);
+    group2.push($scope.players[3]);
+    group2.push($scope.players[7]);
 
-    var num = assignPosition();
-    console.log('inside buildlineups' + num);
-    $scope.printInnings = [];
+    group3.push($scope.players[4]);
+    group3.push($scope.players[5]);
+    group3.push($scope.players[8]);
 
+ 
+    for(var i = 0; i < $scope.numInnings; i++){
+      getCurrInning(group1, group2, group3);
+      group1 = rotateGroup(group1);
+      group2 = rotateGroup(group2);
+      group3 = rotateGroup(group3);
+    }    
 
-
-    //i = innings
-    //j = positions [0,1,2,3,4,5,6,7,8,9]
-
-
-  //   var pos = $scope.players.map(function(e) { return e.name; }).indexOf('P8');
-
-  //   console.log("pos:" + pos);
-
-  //   for(var i = 0; i < $scope.numInnings; i++){
-  //     var currInning = ['blank'];
-
-  //     for(var j = 0; j < 10; j++){
-  //       //get pitcher
-  //       var viablePitchers = $scope.players.filter(function (pi) {return (pi.posPlaytime[1] < 3);});
-  //       var index = 0;
-
-  //       do {
-  //         index = Math.floor(Math.random()*viablePitchers.length)
-  //       }
-  //       while ();
-
-
-  //       currInning.push(viablePitchers[index]);
-
-
-
-
-
-
-
-  //       currInning.push($scope.players[j]);
-  //     }
-  //     $scope.printInnings.push(currInning);
-  //   }
+    $scope.displayLineup();
 
   }
 

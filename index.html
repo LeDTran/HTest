@@ -9,65 +9,65 @@
   </head>
 
   <body ng-app="app" ng-controller="lineupController">
+    <div ng-switch on="page">
+      <div ng-switch-when="editRoster">
+      <center><h1>Build Your Roster</h1></center>
 
-    <center><h1>Build Your Roster</h1></center>
-
-    Select Number of Innings:
-    <select ng-model="numInnings" ng-options="n for n in numInningSelect">
-    </select> {{numInnings}}
-    <br><br>
+        Select Number of Innings:
+        <select ng-model="numInnings" ng-options="n for n in numInningSelect">
+        </select> {{numInnings}}
+        <br><br>
 
 
-    <fieldset  data-ng-repeat="player in players track by $index">
-      <div id="playerName">  
-        <input type="text" ng-model="player.name" name="" placeholder=""><!--psyhp: {{player.psyhp}}  index: {{$index}}-->
+        <fieldset  data-ng-repeat="player in players track by $index">
+          <div id="playerName">  
+            <input type="text" ng-model="player.name" name="" placeholder=""><!--psyhp: {{player.psyhp}}  index: {{$index}}-->
+          </div>
+          <button id="removeButton" ng-click="removePlayer($index)">Remove Player</button><br>
+          <div id="inningPitch">
+            Inning to Pitch: <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect"></select><br>
+          </div>
+
+          Preferred Positions:
+          <div class="posPreference">
+            <label><input type="checkbox" ng-model="player.preferPos[1]"></label>Pitcher (1)
+            <label><input type="checkbox" ng-model="player.preferPos[2]"></label>Catcher (2)<br>
+            <label><input type="checkbox" ng-model="player.preferPos[3]"></label>First Base (3)
+            <label><input type="checkbox" ng-model="player.preferPos[4]"></label>Second Base (4)
+            <label><input type="checkbox" ng-model="player.preferPos[5]"></label>Third Base (5)<br>
+            <label><input type="checkbox" ng-model="player.preferPos[6]"></label>Short Stop (6)<br>
+            <label><input type="checkbox" ng-model="player.preferPos[7]"></label>Left Field (7)
+            <label><input type="checkbox" ng-model="player.preferPos[8]"></label>Center Field(8)
+            <label><input type="checkbox" ng-model="player.preferPos[9]"></label>Right Field (9)<br>
+          </div>
+
+          Positions to Avoid:
+          <div class="posPreference">
+            <label><input type="checkbox" ng-model="player.avoidPos[1]"></label>Pitcher (1)
+            <label><input type="checkbox" ng-model="player.avoidPos[2]"></label>Catcher (2)<br>
+            <label><input type="checkbox" ng-model="player.avoidPos[3]"></label>First Base (3)
+            <label><input type="checkbox" ng-model="player.avoidPos[4]"></label>Second Base (4)
+            <label><input type="checkbox" ng-model="player.avoidPos[5]"></label>Third Base (5)<br>
+            <label><input type="checkbox" ng-model="player.avoidPos[6]"></label>Short Stop (6)<br>
+            <label><input type="checkbox" ng-model="player.avoidPos[7]"></label>Left Field (7)
+            <label><input type="checkbox" ng-model="player.avoidPos[8]"></label>Center Field(8)
+            <label><input type="checkbox" ng-model="player.avoidPos[9]"></label>Right Field (9)<br>
+          </div>
+        </fieldset>
+        <button ng-click="addNewPlayer()">Add Player</button><br><br>    
+        <button ng-click="buildLineups()">Build Your Lineups</button><br><br>
       </div>
-      <button id="removeButton" ng-click="removePlayer($index)">Remove Player</button><br>
-      <div id="inningPitch">
-        Inning to Pitch: <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect"></select><br>
+
+
+      <div ng-switch-when="displayLineup">
+        <div id="inning" data-ng-repeat="x in printInnings">
+          <div data-ng-repeat="player in x">
+            {{player.name}}
+          </div><br><br>  
+        </div>
+        <button ng-click="toEditRoster">Return to Edit Roster</button><br><br>
       </div>
-
-      Preferred Positions:
-      <div class="posPreference">
-        <label><input type="checkbox" ng-model="player.preferPos[1]"></label>Pitcher (1)
-        <label><input type="checkbox" ng-model="player.preferPos[2]"></label>Catcher (2)<br>
-        <label><input type="checkbox" ng-model="player.preferPos[3]"></label>First Base (3)
-        <label><input type="checkbox" ng-model="player.preferPos[4]"></label>Second Base (4)
-        <label><input type="checkbox" ng-model="player.preferPos[5]"></label>Third Base (5)<br>
-        <label><input type="checkbox" ng-model="player.preferPos[6]"></label>Short Stop (6)<br>
-        <label><input type="checkbox" ng-model="player.preferPos[7]"></label>Left Field (7)
-        <label><input type="checkbox" ng-model="player.preferPos[8]"></label>Center Field(8)
-        <label><input type="checkbox" ng-model="player.preferPos[9]"></label>Right Field (9)<br>
-      </div>
-
-      Positions to Avoid:
-      <div class="posPreference">
-        <label><input type="checkbox" ng-model="player.avoidPos[1]"></label>Pitcher (1)
-        <label><input type="checkbox" ng-model="player.avoidPos[2]"></label>Catcher (2)<br>
-        <label><input type="checkbox" ng-model="player.avoidPos[3]"></label>First Base (3)
-        <label><input type="checkbox" ng-model="player.avoidPos[4]"></label>Second Base (4)
-        <label><input type="checkbox" ng-model="player.avoidPos[5]"></label>Third Base (5)<br>
-        <label><input type="checkbox" ng-model="player.avoidPos[6]"></label>Short Stop (6)<br>
-        <label><input type="checkbox" ng-model="player.avoidPos[7]"></label>Left Field (7)
-        <label><input type="checkbox" ng-model="player.avoidPos[8]"></label>Center Field(8)
-        <label><input type="checkbox" ng-model="player.avoidPos[9]"></label>Right Field (9)<br>
-      </div>
-
-
-
-    </fieldset>
-
-    <button ng-click="addNewPlayer()">Add Player</button><br><br>    
-
-    <button ng-click="buildLineups()">Build Your Lineups</button><br><br>
-
-
-    <div data-ng-repeat="x in printInnings">
-      <div data-ng-repeat="player in x">
-        {{player.name}}
-      </div><br><br>  
-    </div>  
-  
+    </div>
   </body>
 </html>
   
