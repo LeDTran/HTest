@@ -3,10 +3,16 @@
 /*IMPORTANT!!!!! classes need to be before id selectors*/
 body {
     font: normal 12px "Comic Sans MS", cursive, sans-serif;  
+    background-color: 
 }
 
 h1{
     font: normal 50px "Comic Sans MS", cursive, sans-serif;
+    color: #1F681B;
+}
+
+img{
+  margin-right: 10px;
 }
 
 fieldset {
@@ -206,11 +212,11 @@ select{
 }
 
 input:checked + .slider {
-  background-color: #90F46E;
+  background-color: #4BB526;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #90F46E;
+  box-shadow: 0 0 1px #4BB526;
 }
 
 input:checked + .slider:before {
