@@ -17,18 +17,16 @@
           <div id="playerName">  
             <input type="text" ng-model="player.name" name="" placeholder="">
           </div>
-          <br>
+
           <div id="inningPitch">
             Inning to Pitch: <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect"></select><br>
           </div>
 
-          Preferred Positions:
-
-
-          <div id="preferences">
+          <div id="preferDiv">
+            Preferred Positions:
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="player.showPrefer">Hide</button>
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="!player.showPrefer">Show</button>
-            <br>
+            <br><br>
             <div id="posPrefer" ng-show="player.showPrefer">
               <label><input type="checkbox" ng-model="player.preferPos[1]">Pitcher ( 1)</label><br>
               <label><input type="checkbox" ng-model="player.preferPos[2]">Catcher (2)</label><br>
@@ -40,11 +38,14 @@
               <label><input type="checkbox" ng-model="player.preferPos[8]">Center Field(8)</label><br>
               <label><input type="checkbox" ng-model="player.preferPos[9]">Right Field (9)</label><br>
             </div>
+          </div>
 
+          <div id="avoidDiv">
             Positions to Avoid:
-            <button class="showhideButton" ng-click="displayAvoid($index);" ng-show="player.showAvoid">Hide</button>
-            <button class="showhideButton" ng-click="displayAvoid($index);" ng-show="!player.showAvoid">Show</button>
-            <div id="posAvoid" ng-show="player.showAvoid">
+            <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="player.showPrefer">Hide</button>
+            <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="!player.showPrefer">Show</button>
+            <br><br>
+            <div id="posAvoid" ng-show="player.showPrefer">
               <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[1]">Pitcher (1)</label><br>
               <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[2]">Catcher (2)</label><br>
               <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[3]">First Base (3)</label><br>
@@ -56,7 +57,8 @@
               <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[9]">Right Field (9)</label><br> 
             </div>
           </div>
-          <button id="removeButton" ng-click="removePlayer($index)">Remove Player</button><br>
+
+          <button id="removeButton" ng-click="removePlayer($index)">Remove Player</button><br><br><br>
         </fieldset>
 
         <br>

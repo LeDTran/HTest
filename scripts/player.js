@@ -10,8 +10,8 @@ var Player = function(name)
     this.avoidPos = [false,false,false,false,false,false,false,false,false,false];
     this.posPlaytime = [100,0,0,0,0,0,0,0,0,0];
 
-    this.showPrefer = true;
-    this.showAvoid = true;
+    this.showPrefer = false;
+    this.showAvoid = false;
 }
 
 var initializePlayers = function(){
