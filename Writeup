@@ -1,0 +1,18 @@
+
+Preplan and Scope:
+The first thing I always do when tackling a new assignment is analyze the requirements of the project, consider the deadline (if there is one), and gauge my own ability to complete that assignment within that timeframe. Depending on if its a long term project, or a short term assignment, my first goal is usually to focus on and determine what is most critical to the requirements of the project, and create a minimal-viable product based on that. After the mvp is complete, then I will start adding on the other features. The assignment was issued late Wednesday afternoon and was asked to be completed "early next" week. So I gave my self a deadline of Monday to complete the assignment, Tuesday at the latest. Since I was going to be out of town Saturday, that gave me about 3 half days and 1 full day to complete assignment. Moving forward, I used this time estimate to gauge the scope of my project, and used it to help me determine what frameworks I would use and how much functionality needed to be achieved.
+
+Framework:
+For this assigment, I went with a simple single page app, focusing on javascipt with AngularJS. I didn't find it necessary to utilize a full framework, at least for this particular app at this particular stage. I believed I would be able to achieve most of the functionality I desired without needing to implement any back end. And it would allow me to focus as much as I can 
+
+As for future expansion of the app, of course I would need to utlize some form of serverside functionality as well. Seeing as how one of the goals incorporates a user account system,
+
+Functionality:
+Now here's where it gets interesting. To summarize the goals of this assignment, it was to create a lineup of of players based on some variable conditions: player preferences, AA rules, and optional rules. Originally I had planned to create an algorithm that would consider the conditions and create the lineup pattern itself dynamically.
+
+However, that proved to be quite complex. VERY complex. More complex than I originally intended. I spent a day tinkering and prototyping the algorithm, and I found it to be quite the complex task to achieve, especially considering the limited work time I had left after my part time job. It would essentially have to be a brute force algorithm and I didn't find it possible to properly design and test that algorithm within the given timeframe. 
+
+So I set about creating the timeframe a different way. In fact, it proved to be quite easy producing a proper lineup on paper, even considering the rules. And so I set about implemented an app that will take in players and produce a lineup based on the pattern I created on paper. And interestingly, since I designed the pattern based on already having all the special rules on, then technically using that pattern to produce a lineup with the rules off is still technically valid. As such, toggling the AA Rules and Optional Rules on the page are basically just for show and have no real funcionality.
+
+So the current missing functionality are player position preferences, pitch inning selection, and "optional rules."
+And lastly, right now the app creates a lineup
