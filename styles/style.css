@@ -29,8 +29,9 @@ th{
   padding-right: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-  border: 1px solid black;
-  margin-right: 1px;
+  border: 3px solid black;
+  font: normal 10px "Comic Sans MS", cursive, sans-serif;
+
 }
 
 td{
@@ -39,19 +40,26 @@ td{
   padding-right: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-  border: 1px solid black;
+  border: 3px solid black;
+  font: normal 10px "Comic Sans MS", cursive, sans-serif;
 
+}
+
+select{
+  border: 3px solid black;
+  background:none; 
+  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+  padding-left:5px; 
+  padding-right:5px; 
 }
 
 .showhideButton{
   border: 3px solid black;
   background:none; 
-  padding-left-right:5px;
+  padding-left-right:2px;
 
   font: normal 15px "Comic Sans MS", cursive, sans-serif;
-
-
-  width: 75px;
+  width: 60px;
 }
 
 
@@ -74,9 +82,15 @@ td{
 }
 
 #removeButton{
+  border: 3px solid;
+  border-color: #DF1B1B;
+  background:none; 
+  padding-left-right:2px;
+
+  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+  color: #DF1B1B;
+
   vertical-align: top;
-  margin-left: 5px;
-  margin-right: 50px;
 }
 
 #preferDiv{
@@ -92,7 +106,7 @@ td{
 #posPrefer{
   vertical-align: top;
   display: inline-block;
-  border: 1px solid black;
+  border: 3px solid black;
   margin-left: 5px;
   margin-right: 5px;
   padding: 5px;
@@ -102,14 +116,25 @@ td{
 #posAvoid{
   vertical-align: top;
   display: inline-block;
-  border: 1px solid black;
-  margin: 2px;
+  border: 3px solid black;
+  margin-left: 5px;
+  margin-right: 5px;
   padding: 5px;
   background-color: #EA6750;
 }
 
 
-.prettyButton{
+#addPlayerButton{
+  border: 3px solid;
+  border-color: #4BB526;
+  background:none; 
+  color:#41822A;
+  padding:10px;
+  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+}
+
+
+#lineupButton{
   border: 3px solid black;
   background:none; 
   padding:10px;
@@ -117,7 +142,7 @@ td{
   font: normal 15px "Comic Sans MS", cursive, sans-serif;
 
   float: right;
-  margin-right: 500px;
+  margin-right:280px;
   margin-bottom: 20px;
 }
 
@@ -134,4 +159,17 @@ td{
 
 #listPlayers{
   display:inline-block;
+  margin-left: 0;
+}
+
+#editRosterButton{
+  border: 3px solid black;
+  background:none; 
+  padding:10px;
+
+  font: normal 12px "Comic Sans MS", cursive, sans-serif;
+
+  float: left;
+  margin-right:280px;
+  margin-bottom: 20px;
 }

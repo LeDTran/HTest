@@ -16,11 +16,11 @@
           <input id="playerName" type="text" ng-model="player.name" name="" placeholder="">
 
           <div id="inningPitch">
-            Inning to Pitch: <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect"></select><br>
+            <b>Inning to Pitch:</b> <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect"></select><br>
           </div>
 
           <div id="preferDiv">
-            Preferred Positions:
+            <b>Preferred Positions:</b>
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="player.showPrefer">Hide</button>
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="!player.showPrefer">Show</button>
             <br><br>
@@ -38,7 +38,7 @@
           </div>
 
           <div id="avoidDiv">
-            Positions to Avoid:
+            <b>Positions to Avoid:</b>
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="player.showPrefer">Hide</button>
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="!player.showPrefer">Show</button>
             <br><br>
@@ -55,13 +55,16 @@
             </div>
           </div>
 
-          <button id="removeButton" ng-click="removePlayer($index)">Remove Player</button><br><br><br>
+          <button id="removeButton" ng-click="removePlayer($index)"> <b>X</b> Remove Player</button><br><br><br>
         </div>
-        <button ng-click="addNewPlayer()">Add Player</button><br><br>  
+        <button id="addPlayerButton" ng-click="addNewPlayer()"><b>+ Add Player</b></button><br><br>  
         <br>
         Select Number of Innings:
         <select ng-model="numInnings[0]" ng-options="n for n in numInningSelect"></select><br><br>
-        <button class="prettyButton" ng-click="buildLineups()">Build Your Lineups</button><br><br>
+
+        <h2>Minimum Play Rules</h2>
+
+        <button id="lineupButton" ng-click="buildLineups()"><b>Build Your Lineups</b></button><br><br>
       </div>
       <!-- END ng-switch editRoster  -->
 
@@ -113,7 +116,7 @@
           </table>
 
           <br>
-          <button ng-click="toEditRoster()">Return to Edit Roster</button><br><br>
+          <button id="editRosterButton" ng-click="toEditRoster()"><b>Return to Edit Roster</b></button><br><br>
         </center>
       </div>
       <!-- END ng-switch displayLineup  -->
