@@ -2,7 +2,7 @@
 /*LOOOOOOK UP class vs id*/
 /*IMPORTANT!!!!! classes need to be before id selectors*/
 body {
-    font: normal 15px "Comic Sans MS", cursive, sans-serif;  
+    font: normal 12px "Comic Sans MS", cursive, sans-serif;  
 }
 
 h1{
@@ -24,50 +24,47 @@ table{
 }
 
 th{
+  font-weight: bold;
   text-align: left;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border: 3px solid black;
-  font: normal 10px "Comic Sans MS", cursive, sans-serif;
-
+  padding:2px;
+  border: 2px solid black;
+  font: normal 12px "Comic Sans MS", cursive, sans-serif;
 }
 
 td{
   text-align: left;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border: 3px solid black;
-  font: normal 10px "Comic Sans MS", cursive, sans-serif;
+  padding: 3px;
+  margin-left:1px; 
+  margin-right:1px;
+  padding-top: 4px;
+  border-bottom: 1px solid grey;
 
+  font: normal 12px "Comic Sans MS", cursive, sans-serif;
 }
 
 select{
-  border: 3px solid black;
+  border: 2px solid black;
   background:none; 
-  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Comic Sans MS", cursive, sans-serif;
   padding-left:5px; 
   padding-right:5px; 
 }
 
 .showhideButton{
-  border: 3px solid black;
+  border: 2px solid black;
   background:none; 
   padding-left-right:2px;
 
-  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Comic Sans MS", cursive, sans-serif;
   width: 60px;
 }
 
 
 #playerName{
-  border: 3px solid black; 
+  border: 2px solid black; 
   padding:10px;
 
-  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12 "Comic Sans MS", cursive, sans-serif;
 
   vertical-align: top;
   display: inline-block;
@@ -87,7 +84,7 @@ select{
   background:none; 
   padding-left-right:2px;
 
-  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Comic Sans MS", cursive, sans-serif;
   color: #DF1B1B;
 
   vertical-align: top;
@@ -106,7 +103,7 @@ select{
 #posPrefer{
   vertical-align: top;
   display: inline-block;
-  border: 3px solid black;
+  border: 2px solid black;
   margin-left: 5px;
   margin-right: 5px;
   padding: 5px;
@@ -116,7 +113,7 @@ select{
 #posAvoid{
   vertical-align: top;
   display: inline-block;
-  border: 3px solid black;
+  border: 2px solid black;
   margin-left: 5px;
   margin-right: 5px;
   padding: 5px;
@@ -130,7 +127,7 @@ select{
   background:none; 
   color:#41822A;
   padding:10px;
-  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Comic Sans MS", cursive, sans-serif;
 }
 
 
@@ -139,7 +136,7 @@ select{
   background:none; 
   padding:10px;
 
-  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Comic Sans MS", cursive, sans-serif;
 
   float: right;
   margin-right:280px;
@@ -172,4 +169,61 @@ select{
   float: left;
   margin-right:280px;
   margin-bottom: 20px;
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #90F46E;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #90F46E;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

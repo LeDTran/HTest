@@ -59,12 +59,24 @@
         </div>
         <button id="addPlayerButton" ng-click="addNewPlayer()"><b>+ Add Player</b></button><br><br>  
         <br>
-        Select Number of Innings:
+        <b>Select Number of Innings:</b>  
         <select ng-model="numInnings[0]" ng-options="n for n in numInningSelect"></select><br><br>
 
-        <h2>Minimum Play Rules</h2>
 
-        <button id="lineupButton" ng-click="buildLineups()"><b>Build Your Lineups</b></button><br><br>
+        <h2>Minimum Play Rules</h2>
+        <label class="switch">
+          <input type="checkbox" ng-click="setAA()" checked="checked">
+          <div class="slider round"></div>
+        </label> <br><br><br>       
+        <input type="radio" id="rule1" checked="checked">Rule 1: Players must play a minimum of 2 innings in the infield and 1 innning in the outfield for games lasting 4+ innings {{rulesAA[0]}}<br>
+        <input type="radio" id="rule2" checked="checked">Rule 2: Players cannot play in the same position for more than two times in a game {{rulesAA[0]}}<br>
+
+        <h2>Optional Roster Rules</h2>
+        <input type="checkbox"checked="checked">No more than two innnings on bench<br>
+        <input type="checkbox"checked="checked">No innings consecutively on benc<br>
+        <input type="checkbox"checked="checked">No inings consecutively in outfield<br>
+
+        <button id="lineupButton" ng-click="buildLineups()"><b>Build Your Lineups
       </div>
       <!-- END ng-switch editRoster  -->
 
@@ -72,38 +84,39 @@
       <div ng-switch-when="displayLineup">
         <center>
           <table id="listPositions">
+    
             <tr>
-              <th>Pitcher</th>
+              <th><b>Pitcher</b></th>
             </tr>
             <tr>
-              <th>Catcher</th>
+              <th><b>Catcher</b></th>
             </tr>
             <tr>
-              <th>First Base</th>
+              <th><b>First Base</b></th>
             </tr>
             <tr>
-              <th>Second Base</th>
+              <th><b>Second Base</b></th>
             </tr>
             <tr>
-              <th>Third Base</th>
+              <th><b>Third Base</b></th>
             </tr>
             <tr>
-              <th>Shortstop</th>
+              <th><b>Shortstop</b></th>
             </tr>
             <tr>
-              <th>Left Field</th>
+              <th><b>Left Field</b></th>
             </tr>
             <tr>
-              <th>Center Field</th>
+              <th><b>Center Field</b></th>
             </tr>
             <tr>
-              <th>Right Field</th>
+              <th><b>Right Field</b></th>
             </tr>
           </table>
           <table id="listPlayers">
             <tr>
               <th ng-repeat="inningNum in numInningsColumns">
-                Inning {{inningNum}}
+                <b>Inning {{inningNum}}</b>
               </th>
            </tr>
 

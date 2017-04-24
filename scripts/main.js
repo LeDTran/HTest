@@ -42,6 +42,7 @@ app.controller('lineupController', function($scope) {
   //workaround to print variable number of inning columns
   $scope.numInningsColumns=[];
   $scope.inningPitchSelect = ['None',1,2,3,4,5,6];
+
   $scope.printInnings=[];
   $scope.printPositions=[];
   $scope.page = 'editRoster';
@@ -128,6 +129,12 @@ app.controller('lineupController', function($scope) {
   }
   $scope.displayAvoid = function(index){
     $scope.players[index].showAvoid = !$scope.players[index].showAvoid;
+  }
+
+  $scope.setAA = function(){
+    var state = document.getElementById("rule1").disabled;
+    document.getElementById("rule1").disabled = !state;
+    document.getElementById("rule2").disabled = !state;
   }
 
   
