@@ -12,11 +12,8 @@
     <div ng-switch on="page">
       <div ng-switch-when="editRoster">
         <h1>Build Your Roster</h1>
-        <button ng-click="buildLineups()">Build Your Lineups</button><br><br>
-        <fieldset  data-ng-repeat="player in players track by $index">
-          <div id="playerName">  
-            <input type="text" ng-model="player.name" name="" placeholder="">
-          </div>
+        <div data-ng-repeat="player in players track by $index">
+          <input id="playerName" type="text" ng-model="player.name" name="" placeholder="">
 
           <div id="inningPitch">
             Inning to Pitch: <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect"></select><br>
@@ -59,15 +56,12 @@
           </div>
 
           <button id="removeButton" ng-click="removePlayer($index)">Remove Player</button><br><br><br>
-        </fieldset>
-
+        </div>
+        <button ng-click="addNewPlayer()">Add Player</button><br><br>  
         <br>
         Select Number of Innings:
-        <select ng-model="numInnings[0]" ng-options="n for n in numInningSelect">
-        </select>
-        <br><br>
-        <button ng-click="addNewPlayer()">Add Player</button><br><br>    
-        <button ng-click="buildLineups()">Build Your Lineups</button><br><br>
+        <select ng-model="numInnings[0]" ng-options="n for n in numInningSelect"></select><br><br>
+        <button class="prettyButton" ng-click="buildLineups()">Build Your Lineups</button><br><br>
       </div>
       <!-- END ng-switch editRoster  -->
 

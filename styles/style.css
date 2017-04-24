@@ -2,13 +2,17 @@
 /*LOOOOOOK UP class vs id*/
 /*IMPORTANT!!!!! classes need to be before id selectors*/
 body {
-    font: normal 12px "Comic Sans MS", cursive, sans-serif;  
+    font: normal 15px "Comic Sans MS", cursive, sans-serif;  
 }
+
+h1{
+    font: normal 50px "Comic Sans MS", cursive, sans-serif;
+}
+
 fieldset {
   vertical-align: top;
   display: inline-block;
   margin-top: 5px;
-  margin-bottom: 5px;
 }
 
 label{
@@ -17,8 +21,6 @@ label{
 
 table{
   font: normal 12px Aria, sans-serif;
-;
-
 }
 
 th{
@@ -42,22 +44,33 @@ td{
 }
 
 .showhideButton{
-    width: 50px;
+  border: 3px solid black;
+  background:none; 
+  padding-left-right:5px;
 
+  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+
+
+  width: 75px;
 }
 
 
 #playerName{
+  border: 3px solid black; 
+  padding:10px;
+
+  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+
   vertical-align: top;
   display: inline-block;
-  margin-right: 50px;
+  margin-right: 25px;
 }
 
 #inningPitch{
   vertical-align: top;
   display: inline-block;
   margin: 2px;
-  margin-right: 50px;
+  margin-right: 25px;
 }
 
 #removeButton{
@@ -68,11 +81,12 @@ td{
 
 #preferDiv{
   display: inline-block;
+  margin-right: 10px;
 }
 
 #avoidDiv{
   display: inline-block;
-
+  margin-right: 20px;
 }
 
 #posPrefer{
@@ -95,6 +109,17 @@ td{
 }
 
 
+.prettyButton{
+  border: 3px solid black;
+  background:none; 
+  padding:10px;
+
+  font: normal 15px "Comic Sans MS", cursive, sans-serif;
+
+  float: right;
+  margin-right: 500px;
+  margin-bottom: 20px;
+}
 
 #inning{
   vertical-align: top;
