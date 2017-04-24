@@ -14,46 +14,52 @@
       <center><h1>Build Your Roster</h1></center>
 
         Select Number of Innings:
-        <select ng-model="numInnings" ng-options="n for n in numInningSelect">
-        </select> {{numInnings}}
+        <select ng-model="numInnings[0]" ng-options="n for n in numInningSelect" ng-change="changeSelectedItem()">
+        </select>
         <br><br>
 
 
         <fieldset  data-ng-repeat="player in players track by $index">
           <div id="playerName">  
-            <input type="text" ng-model="player.name" name="" placeholder=""><!--psyhp: {{player.psyhp}}  index: {{$index}}-->
+            <input type="text" ng-model="player.name" name="" placeholder="">
           </div>
-          <button id="removeButton" ng-click="removePlayer($index)">Remove Player</button><br>
           <div id="inningPitch">
             Inning to Pitch: <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect"></select><br>
           </div>
 
           Preferred Positions:
-          <div class="posPreference">
-            <label><input type="checkbox" ng-model="player.preferPos[1]"></label>Pitcher (1)
+          <div id="posPrefer">
+            <label><input type="checkbox" ng-model="player.preferPos[1]"></label>Pitcher (1)<br>
             <label><input type="checkbox" ng-model="player.preferPos[2]"></label>Catcher (2)<br>
-            <label><input type="checkbox" ng-model="player.preferPos[3]"></label>First Base (3)
-            <label><input type="checkbox" ng-model="player.preferPos[4]"></label>Second Base (4)
+            <label><input type="checkbox" ng-model="player.preferPos[3]"></label>First Base (3)<br>
+            <label><input type="checkbox" ng-model="player.preferPos[4]"></label>Second Base (4)<br>
             <label><input type="checkbox" ng-model="player.preferPos[5]"></label>Third Base (5)<br>
             <label><input type="checkbox" ng-model="player.preferPos[6]"></label>Short Stop (6)<br>
-            <label><input type="checkbox" ng-model="player.preferPos[7]"></label>Left Field (7)
-            <label><input type="checkbox" ng-model="player.preferPos[8]"></label>Center Field(8)
+            <label><input type="checkbox" ng-model="player.preferPos[7]"></label>Left Field (7)<br>
+            <label><input type="checkbox" ng-model="player.preferPos[8]"></label>Center Field(8)<br>
             <label><input type="checkbox" ng-model="player.preferPos[9]"></label>Right Field (9)<br>
           </div>
 
           Positions to Avoid:
-          <div class="posPreference">
-            <label><input type="checkbox" ng-model="player.avoidPos[1]"></label>Pitcher (1)
+          <div id="posAvoid">
+            <label><input type="checkbox" ng-model="player.avoidPos[1]"></label>Pitcher (1)<br>
             <label><input type="checkbox" ng-model="player.avoidPos[2]"></label>Catcher (2)<br>
-            <label><input type="checkbox" ng-model="player.avoidPos[3]"></label>First Base (3)
-            <label><input type="checkbox" ng-model="player.avoidPos[4]"></label>Second Base (4)
+            <label><input type="checkbox" ng-model="player.avoidPos[3]"></label>First Base (3)<br>
+            <label><input type="checkbox" ng-model="player.avoidPos[4]"></label>Second Base (4)<br>
             <label><input type="checkbox" ng-model="player.avoidPos[5]"></label>Third Base (5)<br>
             <label><input type="checkbox" ng-model="player.avoidPos[6]"></label>Short Stop (6)<br>
-            <label><input type="checkbox" ng-model="player.avoidPos[7]"></label>Left Field (7)
-            <label><input type="checkbox" ng-model="player.avoidPos[8]"></label>Center Field(8)
-            <label><input type="checkbox" ng-model="player.avoidPos[9]"></label>Right Field (9)<br>
+            <label><input type="checkbox" ng-model="player.avoidPos[7]"></label>Left Field (7)<br>
+            <label><input type="checkbox" ng-model="player.avoidPos[8]"></label>Center Field(8)<br>
+            <label><input type="checkbox" ng-model="player.avoidPos[9]"></label>Right Field (9)<br> 
           </div>
+          <button id="removeButton" ng-click="removePlayer($index)">Remove Player</button><br>
         </fieldset>
+
+
+
+
+
+
         <button ng-click="addNewPlayer()">Add Player</button><br><br>    
         <button ng-click="buildLineups()">Build Your Lineups</button><br><br>
       </div>
@@ -65,7 +71,24 @@
             {{player.name}}
           </div><br><br>  
         </div>
-        <button ng-click="toEditRoster">Return to Edit Roster</button><br><br>
+        <br><br>
+------
+        <table>
+          <tr class="days">
+            <td ng-repeat="inningNum in numInningsColumns">
+              Inning {{inningNum}}
+            </td>
+         </tr>
+         <tr ng-repeat="x in printInnings">
+             <td ng-repeat="player in x">
+                {{player.name}}
+                 <!-- After seven iterations a new `<tr>` should be aded -->
+            </td>
+         </tr>
+        </table>
+
+
+        <button ng-click="toEditRoster()">Return to Edit Roster</button><br><br>
       </div>
     </div>
   </body>

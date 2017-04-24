@@ -1,11 +1,30 @@
 /* Styles go here */
 /*LOOOOOOK UP class vs id*/
 /*IMPORTANT!!!!! classes need to be before id selectors*/
-.posPreference{
+body {
+    font: normal 12px Arial, sans-serif;
+}
+fieldset {
+  margin: 5px;
+  
+}
+
+#posPrefer{
   vertical-align: top;
   display: inline-block;
   border: 1px solid black;
-  margin:10px;
+  margin:5px;
+  padding:5px;
+  background-color: #90F46E;
+}
+
+#posAvoid{
+  vertical-align: top;
+  display: inline-block;
+  border: 1px solid black;
+  margin:5px;
+  padding:5px;
+  background-color: #EA6750;
 }
 
 #playerName{
@@ -19,12 +38,13 @@
 }
 
 #removeButton{
-  display: inline;
   margin:10px;
 
 }
 
 #inning{
+    vertical-align: top;
+
   display: inline-block;
   margin: 10px;
 }

@@ -37,24 +37,41 @@ app.controller('lineupController', function($scope) {
   // $scope.players.push(firstPlayer);
   $scope.players = initializePlayers();
   $scope.numInningSelect = [1,2,3,4,5,6];
-  $scope.numInnings = 6;
+  //value for number of innings. Need to be in bracket b/c of scoping? to ensure prototypical inheritance
+  $scope.numInnings = [6];
+  //workaround to print variable number of inning columns
+  $scope.numInningsColumns=[];
   $scope.inningPitchSelect = ['None',1,2,3,4,5,6];
   $scope.printInnings=[];
   $scope.listPitchers=[];
-
   $scope.page = 'editRoster';
+
+  $scope.changeSelectedItem = function(){
+     console.log($scope.numInnings);
+  }
 
       // add an item
   $scope.addNewPlayer = function() {
-    var newPlayer = new Player("New Player");
-    //newPlayer.name = "Player" + $scope.players.length;
-    //newPlayer.name = $scope.players[$scope.players.length-1].name + $scope.players.length;
-    newPlayer.psyhp = $scope.players.length;
-    $scope.players.push(newPlayer);
+        console.log($scope.numInnings);
+
+    if($scope.players.length >=15){
+      alert("Can not have more than 15 players!", "WARNING");
+    }
+
+    else{
+      var newPlayer = new Player("New Player");
+      newPlayer.psyhp = $scope.players.length;
+      $scope.players.push(newPlayer);
+    }
   };
 
   $scope.removePlayer = function(playerIndex){
-    $scope.players.splice(playerIndex, 1);
+    if($scope.players.length <= 9){
+      alert("Must have at least 9 players!", "WARNING");
+    }
+    else{
+      $scope.players.splice(playerIndex, 1);
+    }
   }
 
 //write general function to get player
@@ -87,16 +104,24 @@ app.controller('lineupController', function($scope) {
     return currGroup;
   }
 
-    $sc.displayLineup = function(){
-        $scope.page = 'displayLineup';
-    }
+  $scope.displayLineup = function(){
+      console.log("GO TO DISPLAY");
+      $scope.page = 'displayLineup';
 
-    $sc.toEditRoster = function(index){
-        $scope.page = 'editRoster';
-    }
+  }
+
+  $scope.toEditRoster = function(index){
+      console.log("GO TO EDIT");
+      $scope.page = 'editRoster';
+  }
 
   
   $scope.buildLineups = function(){
+    $scope.numInningsColumns=[];
+    for(var j = 1; j <= $scope.numInnings[0]; j++){
+      $scope.numInningsColumns.push(j);
+    }
+
     $scope.listPitchers = [];
 
     //pos 1,2,7 (Ca, Pi, LF)
@@ -119,8 +144,7 @@ app.controller('lineupController', function($scope) {
     group3.push($scope.players[5]);
     group3.push($scope.players[8]);
 
- 
-    for(var i = 0; i < $scope.numInnings; i++){
+    for(var i = 0; i < $scope.numInnings[0]; i++){
       getCurrInning(group1, group2, group3);
       group1 = rotateGroup(group1);
       group2 = rotateGroup(group2);
