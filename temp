@@ -41,3 +41,12 @@
   
   </body>
 </html>
+
+<!--       <div ng-switch-when="displayLineup">
+        <div id="inning" data-ng-repeat="x in printInnings">
+          <div data-ng-repeat="player in x">
+            {{player.name}}
+          </div><br><br>  
+        </div>
+        <br><br> -->
+------

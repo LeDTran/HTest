@@ -43,14 +43,9 @@ app.controller('lineupController', function($scope) {
   $scope.numInningsColumns=[];
   $scope.inningPitchSelect = ['None',1,2,3,4,5,6];
   $scope.printInnings=[];
-  $scope.listPitchers=[];
+  $scope.printPositions=[];
   $scope.page = 'editRoster';
 
-  $scope.changeSelectedItem = function(){
-     console.log($scope.numInnings);
-  }
-
-      // add an item
   $scope.addNewPlayer = function() {
         console.log($scope.numInnings);
 
@@ -59,7 +54,7 @@ app.controller('lineupController', function($scope) {
     }
 
     else{
-      var newPlayer = new Player("New Player");
+      var newPlayer = new Player("New Player Name");
       newPlayer.psyhp = $scope.players.length;
       $scope.players.push(newPlayer);
     }
@@ -72,12 +67,6 @@ app.controller('lineupController', function($scope) {
     else{
       $scope.players.splice(playerIndex, 1);
     }
-  }
-
-//write general function to get player
-
-  function assignPosition(){
-    return 5;
   }
 
   function getCurrInning(group1, group2, group3){
@@ -104,6 +93,25 @@ app.controller('lineupController', function($scope) {
     return currGroup;
   }
 
+  //printInnings filled in as array of inning array
+  //Needs to be reorderd as array of position array, for proper display on html
+  function getPrintPositions(){
+    var currPosition = [];
+    var allPosition = [];
+    console.log($scope.printInnings[0].length);
+
+    for(var i = 0; i < $scope.printInnings[0].length; i++){
+      for(var j = 0; j < $scope.printInnings.length; j++){
+        currPosition.push($scope.printInnings[j][i]);
+      }
+      allPosition.push(currPosition);
+      //console.log(currPosition);
+      currPosition=[];
+    }
+
+    return allPosition;
+  }
+
   $scope.displayLineup = function(){
       console.log("GO TO DISPLAY");
       $scope.page = 'displayLineup';
@@ -115,14 +123,24 @@ app.controller('lineupController', function($scope) {
       $scope.page = 'editRoster';
   }
 
+  $scope.displayPrefer = function(index){
+    $scope.players[index].showPrefer = !$scope.players[index].showPrefer;
+  }
+  $scope.displayAvoid = function(index){
+    $scope.players[index].showAvoid = !$scope.players[index].showAvoid;
+  }
+
   
   $scope.buildLineups = function(){
+    //Reset and rebuild inning display header
     $scope.numInningsColumns=[];
     for(var j = 1; j <= $scope.numInnings[0]; j++){
       $scope.numInningsColumns.push(j);
     }
 
-    $scope.listPitchers = [];
+    $scope.printInnings = [];
+    $scope.printPositions = [];
+
 
     //pos 1,2,7 (Ca, Pi, LF)
     var group1 = [];
@@ -150,6 +168,8 @@ app.controller('lineupController', function($scope) {
       group2 = rotateGroup(group2);
       group3 = rotateGroup(group3);
     }    
+
+    $scope.printPositions = getPrintPositions();
 
     $scope.displayLineup();
 

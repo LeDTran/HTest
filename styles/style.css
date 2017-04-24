@@ -2,19 +2,76 @@
 /*LOOOOOOK UP class vs id*/
 /*IMPORTANT!!!!! classes need to be before id selectors*/
 body {
-    font: normal 12px Arial, sans-serif;
+    font: normal 12px "Comic Sans MS", cursive, sans-serif;  
 }
 fieldset {
-  margin: 5px;
-  
+  display: inline-block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+label{
+  float:left;
+}
+
+table{
+  font: normal 12px Aria, sans-serif;
+;
+
+}
+
+th{
+  text-align: left;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid black;
+  margin-right: 1px;
+}
+
+td{
+  text-align: left;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid black;
+
+}
+
+.showhideButton{
+    width: 50px;
+
+}
+
+#preferences{
+    display: inline-block;
+}
+
+#playerName{
+  display: inline-block;
+  margin-right: 50px;
+}
+
+#inningPitch{
+  display: inline-block;
+  margin: 2px;
+  margin-right: 50px;
+}
+
+#removeButton{
+  margin-left: 5px;
+  margin-right: 50px;
 }
 
 #posPrefer{
   vertical-align: top;
   display: inline-block;
   border: 1px solid black;
-  margin:5px;
-  padding:5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 5px;
   background-color: #90F46E;
 }
 
@@ -22,30 +79,27 @@ fieldset {
   vertical-align: top;
   display: inline-block;
   border: 1px solid black;
-  margin:5px;
-  padding:5px;
+  margin: 2px;
+  padding: 5px;
   background-color: #EA6750;
 }
 
-#playerName{
-  display: inline-block;
-  margin:10px;
-}
 
-#inningPitch{
-  display: inline-block;
-  margin:10px;
-}
-
-#removeButton{
-  margin:10px;
-
-}
 
 #inning{
-    vertical-align: top;
-
+  vertical-align: top;
   display: inline-block;
   margin: 10px;
 }
 
+#listPositions{
+  display:inline-block;
+}
+
+#listInnings{
+
+}
+
+#listPlayers{
+  display:inline-block;
+}
