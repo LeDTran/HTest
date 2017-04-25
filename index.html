@@ -75,18 +75,16 @@
 
         <h2>Optional Roster Rules</h2>
         <input type="checkbox"checked="checked">No more than two innnings on bench<br>
-        <input type="checkbox"checked="checked">No innings consecutively on benc<br>
+        <input type="checkbox"checked="checked">No innings consecutively on bench<br>
         <input type="checkbox"checked="checked">No inings consecutively in outfield<br>
-
         <button id="lineupButton" ng-click="buildLineups()"><b>Build Your Lineups
       </div>
       <!-- END ng-switch editRoster  -->
 
 
       <div ng-switch-when="displayLineup">
-        <center>
+
           <table id="listPositions">
-    
             <tr>
               <th><b>Pitcher</b></th>
             </tr>
@@ -130,9 +128,8 @@
            </tr>
           </table>
 
-          <br>
+          <br><br>
           <button id="editRosterButton" ng-click="toEditRoster()"><b>Return to Edit Roster</b></button><br><br>
-        </center>
       </div>
       <!-- END ng-switch displayLineup  -->
     </div>
