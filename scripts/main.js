@@ -25,7 +25,7 @@
 
 
 //application modules
-var app = angular.module('app', []);
+var app = angular.module('app', ['ngAnimate']);
 
 //controllers
 app.controller('lineupController', function($scope) {
