@@ -38,7 +38,7 @@ app.controller('lineupController', function($scope) {
   $scope.players = initializePlayers();
   $scope.numInningSelect = [1,2,3,4,5,6];
   //value for number of innings. Need to be in bracket b/c of scoping? to ensure prototypical inheritance
-  $scope.numInnings = [6];
+  $scope.numInnings = 6;
   //workaround to print variable number of inning columns
   $scope.numInningsColumns=[];
   $scope.inningPitchSelect = ['None',1,2,3,4,5,6];
@@ -46,6 +46,9 @@ app.controller('lineupController', function($scope) {
   $scope.printInnings=[];
   $scope.printPositions=[];
   $scope.page = 'editRoster';
+
+  //Rules Conditions
+  $scope.ruleMPR = true; //Minimum Play Rules
 
   $scope.addNewPlayer = function() {
         console.log($scope.numInnings);
@@ -131,7 +134,7 @@ app.controller('lineupController', function($scope) {
     $scope.players[index].showAvoid = !$scope.players[index].showAvoid;
   }
 
-  $scope.setAA = function(){
+  $scope.setMPRSwitch = function(){
     var state = document.getElementById("rule1").disabled;
     document.getElementById("rule1").disabled = !state;
     document.getElementById("rule2").disabled = !state;
@@ -146,10 +149,19 @@ app.controller('lineupController', function($scope) {
       posPerInning.push(false);
     }
 
-    for(var j = 0; j < $scope.numInnings[0]; j++){
+    for(var j = 0; j < $scope.numInnings; j++){
       $scope.printPositions.push(posPerInning);
     }
     console.log($scope.printPositions);
+  }
+
+  $scope.MPRInitialize = function(){
+    console.log("Intialzing MPR");
+    $scope.putInfield();
+  }
+
+  $scope.putInfield = function(){
+    console.log("PUTTING IN INFIELD");
   }
 
 
@@ -157,7 +169,7 @@ app.controller('lineupController', function($scope) {
   $scope.buildLineups = function(){
     //Reset and rebuild inning display header
     $scope.numInningsColumns=[];
-    for(var j = 1; j <= $scope.numInnings[0]; j++){
+    for(var j = 1; j <= $scope.numInnings; j++){
       $scope.numInningsColumns.push(j);
     }
 
@@ -185,7 +197,7 @@ app.controller('lineupController', function($scope) {
     group3.push($scope.players[5]);
     group3.push($scope.players[8]);
 
-    for(var i = 0; i < $scope.numInnings[0]; i++){
+    for(var i = 0; i < $scope.numInnings; i++){
       getCurrInning(group1, group2, group3);
       group1 = rotateGroup(group1);
       group2 = rotateGroup(group2);
@@ -196,7 +208,10 @@ app.controller('lineupController', function($scope) {
     //$scope.printPositions[0][0]=false;
 
 
-    $scope.reclearLineup();
+    //$scope.reclearLineup();
+    if($scope.mpr){
+      $scope.MPRInitialize();
+    }
     $scope.displayLineup();
 
   }

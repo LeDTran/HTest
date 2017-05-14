@@ -27,15 +27,15 @@
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="!player.showPrefer">Show</button>
             <br><br>
             <div id="posPrefer" ng-show="player.showPrefer">
-              <label><input type="checkbox" ng-model="player.preferPos[1]">Pitcher ( 1)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[2]">Catcher (2)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[3]">First Base (3)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[4]">Second Base (4)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[5]">Third Base (5)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[6]">Short Stop (6)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[7]">Left Field (7)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[8]">Center Field(8)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[9]">Right Field (9)</label><br>
+              <label><input type="checkbox" ng-model="player.preferPos[0]">Pitcher (1)</label><br>
+              <label><input type="checkbox" ng-model="player.preferPos[1]">Catcher (2)</label><br>
+              <label><input type="checkbox" ng-model="player.preferPos[2]">First Base (3)</label><br>
+              <label><input type="checkbox" ng-model="player.preferPos[3]">Second Base (4)</label><br>
+              <label><input type="checkbox" ng-model="player.preferPos[4]">Third Base (5)</label><br>
+              <label><input type="checkbox" ng-model="player.preferPos[5]">Short Stop (6)</label><br>
+              <label><input type="checkbox" ng-model="player.preferPos[6]">Left Field (7)</label><br>
+              <label><input type="checkbox" ng-model="player.preferPos[7]">Center Field(8)</label><br>
+              <label><input type="checkbox" ng-model="player.preferPos[8]">Right Field (9)</label><br>
             </div>
           </div>
 
@@ -45,15 +45,15 @@
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="!player.showPrefer">Show</button>
             <br><br>
             <div id="posAvoid" ng-show="player.showPrefer">
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[1]">Pitcher (1)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[2]">Catcher (2)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[3]">First Base (3)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[4]">Second Base (4)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[5]">Third Base (5)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[6]">Short Stop (6)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[7]">Left Field (7)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[8]">Center Field(8)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[9]">Right Field (9)</label><br> 
+              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[0]">Pitcher (1)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[1]">Catcher (2)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[2]">First Base (3)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[3]">Second Base (4)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[4]">Third Base (5)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[5]">Short Stop (6)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[6]">Left Field (7)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[7]">Center Field(8)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[8]">Right Field (9)</label><br> 
             </div>
           </div>
 
@@ -62,16 +62,16 @@
         <button id="addPlayerButton" ng-click="addNewPlayer()"><b>+ Add Player</b></button><br><br>  
         <br>
         <b>Select Number of Innings:</b>  
-        <select ng-model="numInnings[0]" ng-options="n for n in numInningSelect"></select><br><br>
+        <select ng-model="$parent.numInnings" ng-options="n for n in numInningSelect"></select><br><br>
 
 
         <h2>Minimum Play Rules</h2>
         <label class="switch">
-          <input type="checkbox" ng-click="setAA()" checked="checked">
+          <input type="checkbox" ng-click="setMPRSwitch()" ng-model="$parent.ruleMPR">
           <div class="slider round"></div>
         </label> <br><br><br>       
-        <input type="radio" id="rule1" checked="checked">Rule 1: Players must play a minimum of 2 innings in the infield and 1 innning in the outfield for games lasting 4+ innings {{rulesAA[0]}}<br>
-        <input type="radio" id="rule2" checked="checked">Rule 2: Players cannot play in the same position for more than two times in a game {{rulesAA[0]}}<br>
+        <input type="radio" id="rule1" checked="checked">Rule 1: Players must play a minimum of 2 innings in the infield and 1 innning in the outfield for games lasting 4+ innings<br>
+        <input type="radio" id="rule2" checked="checked">Rule 2: Players cannot play in the same position for more than two times in a game<br>
 
         <h2>Optional Roster Rules</h2>
         <input type="checkbox"checked="checked">No more than two innnings on bench<br>
@@ -83,7 +83,6 @@
 
 
       <div ng-switch-when="displayLineup">
-
           <table id="listPositions">
             <tr>
               <th><b>Pitcher</b></th>
