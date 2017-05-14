@@ -30,7 +30,6 @@ var app = angular.module('app', ['ngAnimate']);
 //controllers
 app.controller('lineupController', function($scope) {
 
-
   // initial items
   $scope.players = [];
   // var firstPlayer = new Player('New Player');
@@ -102,12 +101,10 @@ app.controller('lineupController', function($scope) {
   function getPrintPositions(){
     var currPosition = [];
     var allPosition = [];
-    console.log($scope.printPositions.length);
-    console.log($scope.printPositions[0].length);
 
-    for(var i = 0; i < $scope.printPositions[0].length; i++){
-      for(var j = 0; j < $scope.printPositions.length; j++){
-        currPosition.push($scope.printPositions[j][i]);
+    for(var i = 0; i < $scope.printInnings[0].length; i++){
+      for(var j = 0; j < $scope.printInnings.length; j++){
+        currPosition.push($scope.printInnings[j][i]);
       }
       allPosition.push(currPosition);
       currPosition=[];
@@ -137,66 +134,56 @@ app.controller('lineupController', function($scope) {
     document.getElementById("rule2").disabled = !state;
   }
 
-//--------------------------------------
-//VER 2
-
   $scope.reclearLineup = function(){
-    $scope.printPositions = [];
-    var posPerInning = [];
-    for(var i = 0; i < $scope.players.length; i++){
-      posPerInning.push(false);
-    }
+    var newLineup = [];
+    console.log(newLineup);
+
     for(var j = 0; j < $scope.numInnings; j++){
-      $scope.printPositions.push(posPerInning);
+      var posPerInning = [];
+      for(var i = 0; i < $scope.players.length; i++){    
+        posPerInning.push(false);
+      }
+      newLineup.push(posPerInning);
     }
+
+    console.log(newLineup);
+    return newLineup;
   }
 
   $scope.MPRInitialize = function(){
     for(var i = 0; i < $scope.players.length; i++){
-      $scope.putInfield($scope.players[i]);
-        // console.log($scope.printPositions);
-      // console.log($scope.players[i].name + "FIRSTMPR++++++++++++++++");
-      // $scope.putInfield($scope.players[i]);
-      // $scope.putOutfield($scope.players[i]);      
+      $scope.putInfield($scope.players[i]);     
     }
   }
 
   $scope.putInfield = function(player){
-    // console.log("PUTTING IN INFIELD");
+    console.log($scope.printInnings[0][0]);
+    // $scope.printInnings[0][0] = player;
+    // console.log($scope.printInnings[0][0]);
+
     var potentialInning;
-    // console.log(player.name + "++++++++++++++++");
     for(var y=0; y<6; y++){
-      // console.log("y: " + y);
       if(player.posPrefer[y]==true){
-      //   console.log(player.name+" pos: "+y);
         potentialInning = $scope.checkOpenPos(y);
-        console.log("POTENTIAL INNINGS: " + potentialInning + " potentialpos: " + y);
-        if(potentialInning != -1){
-          $scope.printPositions[potentialInning][y] = player;
-      //     console.log("ASSINGED------------------------>");          
-      //     //console.log($scope.printPositions);
-      //     console.log("BASSINGED------------------------>");
-          break;
+        if(potentialInning != 100){
+          $scope.printInnings[potentialInning][y] = player;
           return;
         }
       }
     }
+
+
   }
 
   $scope.checkOpenPos = function(pos){
-    // console.log("FUUUUUUC");
-    // console.log($scope.printPositions);
     for(var i = 0; i <$scope.numInnings; i++){
-      if($scope.printPositions[i][pos] == false){
-        // console.log("FUCK ME IN THE BUTT" + i +" " + pos);
+      if($scope.printInnings[i][pos] == false){
         return i;
       }
     }
-    return -1;
+    return 100;
   }
 
-
-  //-------------------------------------- 
   $scope.buildLineups = function(){
     //Reset and rebuild inning display header
     $scope.numInningsColumns=[];
@@ -206,41 +193,13 @@ app.controller('lineupController', function($scope) {
 
     $scope.printInnings = [];
     $scope.printPositions = [];
+    console.log($scope.printInnings);
 
 
-    // //pos 1,2,7 (Ca, Pi, LF)
-    // var group1 = [];
-    // //pos 3,4,8 (1B, 2B CF)
-    // var group2 = [];
-    // //pos 5,6,9 (3B, SS, RF)
-    // var group3 = [];
+    var temp = $scope.reclearLineup();
+    console.log(temp);
+    $scope.printInnings = temp;
 
-    // //push players into group slots
-    // group1.push($scope.players[0]);
-    // group1.push($scope.players[1]);
-    // group1.push($scope.players[6]);
-
-    // group2.push($scope.players[2]);
-    // group2.push($scope.players[3]);
-    // group2.push($scope.players[7]);
-
-    // group3.push($scope.players[4]);
-    // group3.push($scope.players[5]);
-    // group3.push($scope.players[8]);
-
-    // for(var i = 0; i < $scope.numInnings; i++){
-    //   getCurrInning(group1, group2, group3);
-    //   group1 = rotateGroup(group1);
-    //   group2 = rotateGroup(group2);
-    //   group3 = rotateGroup(group3);
-    // }    
-
-    $scope.reclearLineup();
-    console.log($scope.printPositions);
-    console.log("INITIAL+++++++++++++++++++++++++++++++");
-
-
-    // console.log("numInnings: " + $scope.numInnings);
     if($scope.ruleMPR){
       $scope.MPRInitialize();
     }

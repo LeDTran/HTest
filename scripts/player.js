@@ -17,7 +17,7 @@ var Player = function(name)
 var initializePlayers = function(){
     var myPlayers = [];
     var p1 = new Player('P1 Sally');
-    p1.posPrefer=[true,true,true,false,false,false,true,true,true];
+    p1.posPrefer=[false,true,true,false,false,false,true,true,true];
     myPlayers.push(p1);
 
     var p2 = new Player('P2 Jim');
