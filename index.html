@@ -27,15 +27,15 @@
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="!player.showPrefer">Show</button>
             <br><br>
             <div id="posPrefer" ng-show="player.showPrefer">
-              <label><input type="checkbox" ng-model="player.preferPos[0]">Pitcher (1)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[1]">Catcher (2)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[2]">First Base (3)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[3]">Second Base (4)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[4]">Third Base (5)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[5]">Short Stop (6)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[6]">Left Field (7)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[7]">Center Field(8)</label><br>
-              <label><input type="checkbox" ng-model="player.preferPos[8]">Right Field (9)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[0]">Pitcher (1)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[1]">Catcher (2)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[2]">First Base (3)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[3]">Second Base (4)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[4]">Third Base (5)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[5]">Short Stop (6)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[6]">Left Field (7)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[7]">Center Field(8)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[8]">Right Field (9)</label><br>
             </div>
           </div>
 
@@ -45,15 +45,15 @@
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="!player.showPrefer">Show</button>
             <br><br>
             <div id="posAvoid" ng-show="player.showPrefer">
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[0]">Pitcher (1)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[1]">Catcher (2)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[2]">First Base (3)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[3]">Second Base (4)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[4]">Third Base (5)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[5]">Short Stop (6)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[6]">Left Field (7)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[7]">Center Field(8)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.avoidPos[8]">Right Field (9)</label><br> 
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[0]">Pitcher (1)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[1]">Catcher (2)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[2]">First Base (3)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[3]">Second Base (4)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[4]">Third Base (5)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[5]">Short Stop (6)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[6]">Left Field (7)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[7]">Center Field(8)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[8]">Right Field (9)</label><br> 
             </div>
           </div>
 
@@ -121,7 +121,7 @@
 
            <tr ng-repeat="y in printPositions">
             <td ng-repeat="player in y track by $index">
-              {{player}} -
+              {{player.name}} -
             </td>
           </th>
            </tr>

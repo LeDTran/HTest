@@ -47,8 +47,9 @@ app.controller('lineupController', function($scope) {
   $scope.printPositions=[];
   $scope.page = 'editRoster';
 
-  //Rules Conditions
-  $scope.ruleMPR = true; //Minimum Play Rules
+  //Rules Conditions--------------
+  //Minimum Play Rules
+  $scope.ruleMPR = true; 
 
   $scope.addNewPlayer = function() {
         console.log($scope.numInnings);
@@ -62,7 +63,7 @@ app.controller('lineupController', function($scope) {
       newPlayer.psyhp = $scope.players.length;
       $scope.players.push(newPlayer);
     }
-  };
+  }
 
   $scope.removePlayer = function(playerIndex){
     if($scope.players.length <= 9){
@@ -88,7 +89,6 @@ app.controller('lineupController', function($scope) {
     currInning.push(group3[2]);
 
     $scope.printInnings.push(currInning);
-
   }
 
   function rotateGroup(currGroup){
@@ -110,19 +110,15 @@ app.controller('lineupController', function($scope) {
         currPosition.push($scope.printPositions[j][i]);
       }
       allPosition.push(currPosition);
-      //console.log(currPosition);
       currPosition=[];
     }
-
     return allPosition;
   }
 
   $scope.displayLineup = function(){
     // console.log("GO TO DISPLAY");
     $scope.page = 'displayLineup';
-
   }
-
   $scope.toEditRoster = function(index){
     // console.log("GO TO EDIT");
     $scope.page = 'editRoster';
@@ -140,6 +136,7 @@ app.controller('lineupController', function($scope) {
     document.getElementById("rule1").disabled = !state;
     document.getElementById("rule2").disabled = !state;
   }
+
 //--------------------------------------
 //VER 2
 
@@ -149,27 +146,57 @@ app.controller('lineupController', function($scope) {
     for(var i = 0; i < $scope.players.length; i++){
       posPerInning.push(false);
     }
-
     for(var j = 0; j < $scope.numInnings; j++){
       $scope.printPositions.push(posPerInning);
     }
-    console.log($scope.printPositions);
-    console.log("------");
   }
 
   $scope.MPRInitialize = function(){
     for(var i = 0; i < $scope.players.length; i++){
       $scope.putInfield($scope.players[i]);
-      console.log($scope.players[i].name);
+        // console.log($scope.printPositions);
+      // console.log($scope.players[i].name + "FIRSTMPR++++++++++++++++");
+      // $scope.putInfield($scope.players[i]);
+      // $scope.putOutfield($scope.players[i]);      
     }
   }
 
   $scope.putInfield = function(player){
-    console.log("PUTTING IN INFIELD");
-
+    // console.log("PUTTING IN INFIELD");
+    var potentialInning;
+    // console.log(player.name + "++++++++++++++++");
+    for(var y=0; y<6; y++){
+      // console.log("y: " + y);
+      if(player.posPrefer[y]==true){
+      //   console.log(player.name+" pos: "+y);
+        potentialInning = $scope.checkOpenPos(y);
+        console.log("POTENTIAL INNINGS: " + potentialInning + " potentialpos: " + y);
+        if(potentialInning != -1){
+          $scope.printPositions[potentialInning][y] = player;
+      //     console.log("ASSINGED------------------------>");          
+      //     //console.log($scope.printPositions);
+      //     console.log("BASSINGED------------------------>");
+          break;
+          return;
+        }
+      }
+    }
   }
 
-//-------------------------------------- 
+  $scope.checkOpenPos = function(pos){
+    // console.log("FUUUUUUC");
+    // console.log($scope.printPositions);
+    for(var i = 0; i <$scope.numInnings; i++){
+      if($scope.printPositions[i][pos] == false){
+        // console.log("FUCK ME IN THE BUTT" + i +" " + pos);
+        return i;
+      }
+    }
+    return -1;
+  }
+
+
+  //-------------------------------------- 
   $scope.buildLineups = function(){
     //Reset and rebuild inning display header
     $scope.numInningsColumns=[];
@@ -209,16 +236,19 @@ app.controller('lineupController', function($scope) {
     // }    
 
     $scope.reclearLineup();
-    //console.log($scope.printPositions);
+    console.log($scope.printPositions);
+    console.log("INITIAL+++++++++++++++++++++++++++++++");
+
+
+    // console.log("numInnings: " + $scope.numInnings);
+    if($scope.ruleMPR){
+      $scope.MPRInitialize();
+    }
 
     $scope.printPositions = getPrintPositions();
 
-
-    // if($scope.ruleMPR){
-    //   $scope.MPRInitialize();
-    // }
     $scope.displayLineup();
-
   }
 
 });
+
