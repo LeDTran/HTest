@@ -99,7 +99,7 @@ app.controller('lineupController', function($scope) {
   function getPrintPositions(){
     var currPosition = [];
     var allPosition = [];
-    console.log($scope.printInnings[0].length);
+    //console.log($scope.printInnings[0].length);
 
     for(var i = 0; i < $scope.printInnings[0].length; i++){
       for(var j = 0; j < $scope.printInnings.length; j++){
@@ -136,6 +136,22 @@ app.controller('lineupController', function($scope) {
     document.getElementById("rule1").disabled = !state;
     document.getElementById("rule2").disabled = !state;
   }
+//--------------------------------------
+//VER 2
+
+  $scope.reclearLineup = function(){
+    $scope.printPositions = [];
+    var posPerInning = [];
+    for(var i = 0; i < $scope.players.length; i++){
+      posPerInning.push(false);
+    }
+
+    for(var j = 0; j < $scope.numInnings[0]; j++){
+      $scope.printPositions.push(posPerInning);
+    }
+    console.log($scope.printPositions);
+  }
+
 
   
   $scope.buildLineups = function(){
@@ -177,7 +193,10 @@ app.controller('lineupController', function($scope) {
     }    
 
     $scope.printPositions = getPrintPositions();
+    //$scope.printPositions[0][0]=false;
 
+
+    $scope.reclearLineup();
     $scope.displayLineup();
 
   }
