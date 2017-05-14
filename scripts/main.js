@@ -102,11 +102,12 @@ app.controller('lineupController', function($scope) {
   function getPrintPositions(){
     var currPosition = [];
     var allPosition = [];
-    //console.log($scope.printInnings[0].length);
+    console.log($scope.printPositions.length);
+    console.log($scope.printPositions[0].length);
 
-    for(var i = 0; i < $scope.printInnings[0].length; i++){
-      for(var j = 0; j < $scope.printInnings.length; j++){
-        currPosition.push($scope.printInnings[j][i]);
+    for(var i = 0; i < $scope.printPositions[0].length; i++){
+      for(var j = 0; j < $scope.printPositions.length; j++){
+        currPosition.push($scope.printPositions[j][i]);
       }
       allPosition.push(currPosition);
       //console.log(currPosition);
@@ -117,14 +118,14 @@ app.controller('lineupController', function($scope) {
   }
 
   $scope.displayLineup = function(){
-      console.log("GO TO DISPLAY");
-      $scope.page = 'displayLineup';
+    // console.log("GO TO DISPLAY");
+    $scope.page = 'displayLineup';
 
   }
 
   $scope.toEditRoster = function(index){
-      console.log("GO TO EDIT");
-      $scope.page = 'editRoster';
+    // console.log("GO TO EDIT");
+    $scope.page = 'editRoster';
   }
 
   $scope.displayPrefer = function(index){
@@ -153,19 +154,22 @@ app.controller('lineupController', function($scope) {
       $scope.printPositions.push(posPerInning);
     }
     console.log($scope.printPositions);
+    console.log("------");
   }
 
   $scope.MPRInitialize = function(){
-    console.log("Intialzing MPR");
-    $scope.putInfield();
+    for(var i = 0; i < $scope.players.length; i++){
+      $scope.putInfield($scope.players[i]);
+      console.log($scope.players[i].name);
+    }
   }
 
-  $scope.putInfield = function(){
+  $scope.putInfield = function(player){
     console.log("PUTTING IN INFIELD");
+
   }
 
-
-  
+//-------------------------------------- 
   $scope.buildLineups = function(){
     //Reset and rebuild inning display header
     $scope.numInningsColumns=[];
@@ -177,41 +181,42 @@ app.controller('lineupController', function($scope) {
     $scope.printPositions = [];
 
 
-    //pos 1,2,7 (Ca, Pi, LF)
-    var group1 = [];
-    //pos 3,4,8 (1B, 2B CF)
-    var group2 = [];
-    //pos 5,6,9 (3B, SS, RF)
-    var group3 = [];
+    // //pos 1,2,7 (Ca, Pi, LF)
+    // var group1 = [];
+    // //pos 3,4,8 (1B, 2B CF)
+    // var group2 = [];
+    // //pos 5,6,9 (3B, SS, RF)
+    // var group3 = [];
 
-    //push players into group slots
-    group1.push($scope.players[0]);
-    group1.push($scope.players[1]);
-    group1.push($scope.players[6]);
+    // //push players into group slots
+    // group1.push($scope.players[0]);
+    // group1.push($scope.players[1]);
+    // group1.push($scope.players[6]);
 
-    group2.push($scope.players[2]);
-    group2.push($scope.players[3]);
-    group2.push($scope.players[7]);
+    // group2.push($scope.players[2]);
+    // group2.push($scope.players[3]);
+    // group2.push($scope.players[7]);
 
-    group3.push($scope.players[4]);
-    group3.push($scope.players[5]);
-    group3.push($scope.players[8]);
+    // group3.push($scope.players[4]);
+    // group3.push($scope.players[5]);
+    // group3.push($scope.players[8]);
 
-    for(var i = 0; i < $scope.numInnings; i++){
-      getCurrInning(group1, group2, group3);
-      group1 = rotateGroup(group1);
-      group2 = rotateGroup(group2);
-      group3 = rotateGroup(group3);
-    }    
+    // for(var i = 0; i < $scope.numInnings; i++){
+    //   getCurrInning(group1, group2, group3);
+    //   group1 = rotateGroup(group1);
+    //   group2 = rotateGroup(group2);
+    //   group3 = rotateGroup(group3);
+    // }    
+
+    $scope.reclearLineup();
+    //console.log($scope.printPositions);
 
     $scope.printPositions = getPrintPositions();
-    //$scope.printPositions[0][0]=false;
 
 
-    //$scope.reclearLineup();
-    if($scope.mpr){
-      $scope.MPRInitialize();
-    }
+    // if($scope.ruleMPR){
+    //   $scope.MPRInitialize();
+    // }
     $scope.displayLineup();
 
   }
