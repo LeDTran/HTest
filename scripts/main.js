@@ -59,7 +59,6 @@ app.controller('lineupController', function($scope) {
 
     else{
       var newPlayer = new Player("New Player Name");
-      newPlayer.psyhp = $scope.players.length;
       $scope.players.push(newPlayer);
     }
   }
@@ -140,7 +139,8 @@ app.controller('lineupController', function($scope) {
 
     for(var j = 0; j < $scope.numInnings; j++){
       var posPerInning = [];
-      for(var i = 0; i < $scope.players.length; i++){    
+      //-------------------------------------------------------------------------->change this to numplayers later
+      for(var i = 0; i < 9; i++){    
         posPerInning.push(false);
       }
       newLineup.push(posPerInning);
@@ -152,36 +152,55 @@ app.controller('lineupController', function($scope) {
 
   $scope.MPRInitialize = function(){
     for(var i = 0; i < $scope.players.length; i++){
-      $scope.putInfield($scope.players[i]);     
+      $scope.putInfield($scope.players[i]); 
+      console.log("----------------first infield");
+      // $scope.putInfield($scope.players[i]);         
+    }
+    for(var i = 0; i < $scope.players.length; i++){
+      $scope.putInfield($scope.players[i]); 
+      console.log("----------------second infield");
+      // $scope.putInfield($scope.players[i]);         
     }
   }
 
   $scope.putInfield = function(player){
-    console.log($scope.printInnings[0][0]);
-    // $scope.printInnings[0][0] = player;
-    // console.log($scope.printInnings[0][0]);
-
     var potentialInning;
+    //y=position
     for(var y=0; y<6; y++){
       if(player.posPrefer[y]==true){
-        potentialInning = $scope.checkOpenPos(y);
-        if(potentialInning != 100){
-          $scope.printInnings[potentialInning][y] = player;
-          return;
+        potentialInning = $scope.checkLineupSpot(y);
+        if(potentialInning != -1){
+          console.log(player.name + " pos: " + y);
+          if($scope.checkInningRepeat(player, y)==false){
+            $scope.printInnings[potentialInning][y] = player;
+            return;
+          }
         }
       }
     }
-
-
   }
 
-  $scope.checkOpenPos = function(pos){
+  //Returns Inning number if empty
+  //Else returns -1
+  $scope.checkLineupSpot = function(pos){
+    console.log($scope.printInnings[5][0]);
     for(var i = 0; i <$scope.numInnings; i++){
       if($scope.printInnings[i][pos] == false){
+        console.log(i);
         return i;
       }
     }
-    return 100;
+    return -1;
+  }
+
+  //Returns true if player already assigned to inning
+  $scope.checkInningRepeat = function(player, inningNum){
+    for(var i = 0; i < $scope.printInnings[0].length; i++){
+      if($scope.printInnings[inningNum][i] == player){
+        return true;
+      }
+    }
+    return false;
   }
 
   $scope.buildLineups = function(){
