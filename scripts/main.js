@@ -171,7 +171,8 @@ app.controller('lineupController', function($scope) {
         potentialInning = $scope.checkLineupSpot(y);
         if(potentialInning != -1){
           console.log(player.name + " pos: " + y);
-          if($scope.checkInningRepeat(player, y)==false){
+          if($scope.checkInningRepeat(player, potentialInning)==false){
+
             $scope.printInnings[potentialInning][y] = player;
             return;
           }
@@ -183,10 +184,10 @@ app.controller('lineupController', function($scope) {
   //Returns Inning number if empty
   //Else returns -1
   $scope.checkLineupSpot = function(pos){
-    console.log($scope.printInnings[5][0]);
+    console.log($scope.printInnings[3][1]);
     for(var i = 0; i <$scope.numInnings; i++){
       if($scope.printInnings[i][pos] == false){
-        console.log(i);
+        console.log(i + " " + pos);
         return i;
       }
     }
@@ -197,6 +198,8 @@ app.controller('lineupController', function($scope) {
   $scope.checkInningRepeat = function(player, inningNum){
     for(var i = 0; i < $scope.printInnings[0].length; i++){
       if($scope.printInnings[inningNum][i] == player){
+        console.log("inningNum: " + inningNum + " - i: " + i);
+        console.log($scope.printInnings[inningNum][i]);
         return true;
       }
     }
