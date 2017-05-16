@@ -14,6 +14,7 @@
     <div ng-switch on="page">
       <div ng-switch-when="editRoster">
         <h1><img src="images/The_Harker_School_Logo.jpg" style="width:100px;height:100;">Build Your Roster</h1>
+        *Note* Players higher on the list will be have their preferences more prioritized <br><br>
         <div data-ng-repeat="player in players track by $index">
           <input id="playerName" type="text" ng-model="player.name" name="" placeholder="">
 
@@ -27,15 +28,15 @@
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="!player.showPrefer">Show</button>
             <br><br>
             <div id="posPrefer" ng-show="player.showPrefer">
-              <label><input type="checkbox" ng-model="player.posPrefer[0]">Pitcher (1)</label><br>
-              <label><input type="checkbox" ng-model="player.posPrefer[1]">Catcher (2)</label><br>
-              <label><input type="checkbox" ng-model="player.posPrefer[2]">First Base (3)</label><br>
-              <label><input type="checkbox" ng-model="player.posPrefer[3]">Second Base (4)</label><br>
-              <label><input type="checkbox" ng-model="player.posPrefer[4]">Third Base (5)</label><br>
-              <label><input type="checkbox" ng-model="player.posPrefer[5]">Short Stop (6)</label><br>
-              <label><input type="checkbox" ng-model="player.posPrefer[6]">Left Field (7)</label><br>
-              <label><input type="checkbox" ng-model="player.posPrefer[7]">Center Field(8)</label><br>
-              <label><input type="checkbox" ng-model="player.posPrefer[8]">Right Field (9)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[0]" ng-click="fixPreferAvoid('prefer',0,$index)">Pitcher (1)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[1]" ng-click="fixPreferAvoid('prefer',1,$index)">Catcher (2)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[2]" ng-click="fixPreferAvoid('prefer',2,$index)">First Base (3)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[3]" ng-click="fixPreferAvoid('prefer',3,$index)">Second Base (4)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[4]" ng-click="fixPreferAvoid('prefer',4,$index)">Third Base (5)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[5]" ng-click="fixPreferAvoid('prefer',5,$index)">Short Stop (6)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[6]" ng-click="fixPreferAvoid('prefer',6,$index)">Left Field (7)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[7]" ng-click="fixPreferAvoid('prefer',7,$index)">Center Field(8)</label><br>
+              <label><input type="checkbox" ng-model="player.posPrefer[8]" ng-click="fixPreferAvoid('prefer',8,$index)">Right Field (9)</label><br>
             </div>
           </div>
 
@@ -45,15 +46,15 @@
             <button class="showhideButton" ng-click="displayPrefer($index);" ng-show="!player.showPrefer">Show</button>
             <br><br>
             <div id="posAvoid" ng-show="player.showPrefer">
-              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[0]">Pitcher (1)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[1]">Catcher (2)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[2]">First Base (3)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[3]">Second Base (4)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[4]">Third Base (5)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[5]">Short Stop (6)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[6]">Left Field (7)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[7]">Center Field(8)</label><br>
-              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[8]">Right Field (9)</label><br> 
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[0]" ng-click="fixPreferAvoid('avoid',0,$index)">Pitcher (1)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[1]" ng-click="fixPreferAvoid('avoid',1,$index)">Catcher (2)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[2]" ng-click="fixPreferAvoid('avoid',2,$index)">First Base (3)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[3]" ng-click="fixPreferAvoid('avoid',3,$index)">Second Base (4)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[4]" ng-click="fixPreferAvoid('avoid',4,$index)">Third Base (5)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[5]" ng-click="fixPreferAvoid('avoid',5,$index)">Short Stop (6)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[6]" ng-click="fixPreferAvoid('avoid',6,$index)">Left Field (7)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[7]" ng-click="fixPreferAvoid('avoid',7,$index)">Center Field(8)</label><br>
+              <label><input class="prefCheck" type="checkbox" ng-model="player.posAvoid[8]" ng-click="fixPreferAvoid('avoid',8,$index)">Right Field (9)</label><br> 
             </div>
           </div>
 

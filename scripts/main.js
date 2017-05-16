@@ -1,29 +1,3 @@
-// var list = [];
-// function getText() {
-    // var str = document.getElementById("newTask");
-
-    // list.push(str.value);
-    // str.value = "";
-    // str.focus();
-    // var area = document.getElementById("txtArea");
-    // area.value = "";
-    // for (var i = 0; i < list.length; i++) {
-        // area.value += list[i] + "\n";
-    // }
-// }
-
-//document.getElementById("add").onclick = function() {
-    // First things first, we need our text:
-//    var text = document.getElementById("idea").value; //.value gets input values
-
-    // Now construct a quick list element
-//    var li = "<li>" + text + "</li>";
-
-    // Now use appendChild and add it to the list!
-//    document.getElementById("list").appendChild(li);
-//}
-
-
 //application modules
 var app = angular.module('app', ['ngAnimate']);
 
@@ -46,8 +20,8 @@ app.controller('lineupController', function($scope) {
   $scope.printPositions=[];
   $scope.page = 'editRoster';
 
-  //Rules Conditions--------------
-  //Minimum Play Rules
+  //----------------------Rules/Conditions----------------------
+  //MPR = Minimum Play Rules
   $scope.ruleMPR = true; 
 
   $scope.addNewPlayer = function() {
@@ -127,6 +101,24 @@ app.controller('lineupController', function($scope) {
     $scope.players[index].showAvoid = !$scope.players[index].showAvoid;
   }
 
+  $scope.fixPreferAvoid = function(state, pos, playerIndex){
+    console.log("FUCK" + playerIndex);
+    console.log(state);
+
+    if(state=='prefer'){
+      if($scope.players[playerIndex].posPrefer[pos]==false && $scope.players[playerIndex].posAvoid[pos]==true){
+        $scope.players[playerIndex].posAvoid[pos]=false;
+      }
+    }
+    if(state=='avoid'){
+      console.log("AVOID: " + state + pos);
+      if($scope.players[playerIndex].posAvoid[pos]==false && $scope.players[playerIndex].posPrefer[pos]==true){
+        $scope.players[playerIndex].posPrefer[pos]=false;
+      }
+    }
+  }
+
+
   $scope.setMPRSwitch = function(){
     var state = document.getElementById("rule1").disabled;
     document.getElementById("rule1").disabled = !state;
@@ -152,42 +144,70 @@ app.controller('lineupController', function($scope) {
 
   $scope.MPRInitialize = function(){
     for(var i = 0; i < $scope.players.length; i++){
-      $scope.putInfield($scope.players[i]); 
-      console.log("----------------first infield");
-      // $scope.putInfield($scope.players[i]);         
+      $scope.assignField('infield',$scope.players[i]);         
+    }
+    for(var i = 0; i < $scope.players.length; i++){  
+      $scope.assignField('infield',$scope.players[i]);              
     }
     for(var i = 0; i < $scope.players.length; i++){
-      $scope.putInfield($scope.players[i]); 
-      console.log("----------------second infield");
-      // $scope.putInfield($scope.players[i]);         
+      $scope.assignField('outfield',$scope.players[i]);       
     }
   }
 
-  $scope.putInfield = function(player){
-    var potentialInning;
-    //y=position
-    for(var y=0; y<6; y++){
-      if(player.posPrefer[y]==true){
-        potentialInning = $scope.checkLineupSpot(y);
-        if(potentialInning != -1){
-          console.log(player.name + " pos: " + y);
-          if($scope.checkInningRepeat(player, potentialInning)==false){
 
-            $scope.printInnings[potentialInning][y] = player;
-            return;
-          }
+  $scope.assignField = function(inOrOut,player){
+    var potentialInning;
+    if(inOrOut == 'infield'){
+      var posStart = 0;
+      var posEnd = 6;
+    }
+    else if(inOrOut == 'outfield'){
+      var posStart = 6;
+      var posEnd = 9;
+    }
+
+    for(var i=posStart; i<posEnd; i++){
+      if(player.posPrefer[i]==true){
+        if($scope.chooseByPreference(player, i)== true){
+          return;
         }
       }
     }
+
+    for(var i=posStart; i<posEnd; i++){
+      if(player.posPrefer[i]==false && player.posAvoid[i]==false){
+        if($scope.chooseByPreference(player, i)== true){
+          return;
+        }
+      }
+    }    
+
+    for(var i=posStart; i<posEnd; i++){
+      if(player.posAvoid[i]==true){
+        if($scope.chooseByPreference(player, i)== true){
+          return;
+        }
+      } 
+    }
+  }
+
+  $scope.chooseByPreference = function(player, i){
+    potentialInning = $scope.checkLineupSpot(i);
+    if(potentialInning != -1){
+      if($scope.checkInningRepeat(player, potentialInning)==false){
+        $scope.printInnings[potentialInning][i] = player;
+        return true;
+      }
+    }
+    return false;
   }
 
   //Returns Inning number if empty
   //Else returns -1
   $scope.checkLineupSpot = function(pos){
-    console.log($scope.printInnings[3][1]);
     for(var i = 0; i <$scope.numInnings; i++){
       if($scope.printInnings[i][pos] == false){
-        console.log(i + " " + pos);
+        // console.log(i + " " + pos);
         return i;
       }
     }
@@ -198,8 +218,8 @@ app.controller('lineupController', function($scope) {
   $scope.checkInningRepeat = function(player, inningNum){
     for(var i = 0; i < $scope.printInnings[0].length; i++){
       if($scope.printInnings[inningNum][i] == player){
-        console.log("inningNum: " + inningNum + " - i: " + i);
-        console.log($scope.printInnings[inningNum][i]);
+        // console.log("inningNum: " + inningNum + " - i: " + i);
+        // console.log($scope.printInnings[inningNum][i]);
         return true;
       }
     }
