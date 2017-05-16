@@ -4,14 +4,14 @@ var app = angular.module('app', ['ngAnimate']);
 //controllers
 app.controller('lineupController', function($scope) {
 
+
+  //----------------------Initializations----------------------
   // initial items
   $scope.players = [];
-  // var firstPlayer = new Player('New Player');
-  // $scope.players.push(firstPlayer);
   $scope.players = initializePlayers();
   $scope.numInningSelect = [1,2,3,4,5,6];
-  //value for number of innings. Need to be in bracket b/c of scoping? to ensure prototypical inheritance
   $scope.numInnings = 6;
+
   //workaround to print variable number of inning columns
   $scope.numInningsColumns=[];
   $scope.inningPitchSelect = ['None',1,2,3,4,5,6];
@@ -69,22 +69,7 @@ app.controller('lineupController', function($scope) {
     return currGroup;
   }
 
-  //printInnings filled in as array of inning array
-  //Needs to be reorderd as array of position array, for proper display on html
-  function getPrintPositions(){
-    var currPosition = [];
-    var allPosition = [];
-
-    for(var i = 0; i < $scope.printInnings[0].length; i++){
-      for(var j = 0; j < $scope.printInnings.length; j++){
-        currPosition.push($scope.printInnings[j][i]);
-      }
-      allPosition.push(currPosition);
-      currPosition=[];
-    }
-    return allPosition;
-  }
-
+  //----------------------UI Functions for HTML/Angular----------------------
   $scope.displayLineup = function(){
     // console.log("GO TO DISPLAY");
     $scope.page = 'displayLineup';
@@ -118,12 +103,15 @@ app.controller('lineupController', function($scope) {
     }
   }
 
-
   $scope.setMPRSwitch = function(){
     var state = document.getElementById("rule1").disabled;
     document.getElementById("rule1").disabled = !state;
     document.getElementById("rule2").disabled = !state;
   }
+
+  //--------------------------------------------Reclear Lineup---------------------------------------------
+  //Empties out and refreshes inning positions, to be used for new lineup
+  //Returns inningNum x numPlayers matrix of FALSE values
 
   $scope.reclearLineup = function(){
     var newLineup = [];
@@ -142,6 +130,27 @@ app.controller('lineupController', function($scope) {
     return newLineup;
   }
 
+
+  //printInnings filled in as array of inning array
+  //Needs to be reorderd as array of position array, for proper display on html
+  function getPrintPositions(){
+    var currPosition = [];
+    var allPosition = [];
+
+    for(var i = 0; i < $scope.printInnings[0].length; i++){
+      for(var j = 0; j < $scope.printInnings.length; j++){
+        currPosition.push($scope.printInnings[j][i]);
+      }
+      allPosition.push(currPosition);
+      currPosition=[];
+    }
+    return allPosition;
+  }
+
+  //--------------------------------------------MPR Assignment---------------------------------------------
+  //If MPR switch is on, do initialze assignment of 2 outfield/1 infield positions
+
+  //Assigns 2 outfield and 1 infield positions for each player
   $scope.MPRInitialize = function(){
     for(var i = 0; i < $scope.players.length; i++){
       $scope.assignField('infield',$scope.players[i]);         
@@ -154,7 +163,8 @@ app.controller('lineupController', function($scope) {
     }
   }
 
-
+  //Assigns player to positions based on preferences 
+  //Prioritized by: preferred, then neutral, then avoided positions
   $scope.assignField = function(inOrOut,player){
     var potentialInning;
     if(inOrOut == 'infield'){
@@ -191,6 +201,8 @@ app.controller('lineupController', function($scope) {
     }
   }
 
+  //Given player and i=potential position, returns true if successfully finds 
+  //an inning with that position open, and assigns the player to it
   $scope.chooseByPreference = function(player, i){
     potentialInning = $scope.checkLineupSpot(i);
     if(potentialInning != -1){
@@ -202,30 +214,30 @@ app.controller('lineupController', function($scope) {
     return false;
   }
 
-  //Returns Inning number if empty
-  //Else returns -1
+  //For the position specified, looks in each inning for an empty spot not already assigned to a player
+  //Returns inning number if empty position found, else return -1
   $scope.checkLineupSpot = function(pos){
     for(var i = 0; i <$scope.numInnings; i++){
       if($scope.printInnings[i][pos] == false){
-        // console.log(i + " " + pos);
         return i;
       }
     }
     return -1;
   }
 
-  //Returns true if player already assigned to inning
+  //Returns true if player already assigned to that inning.
+  //Used to prevent a player being assigned twice in one inning
   $scope.checkInningRepeat = function(player, inningNum){
     for(var i = 0; i < $scope.printInnings[0].length; i++){
       if($scope.printInnings[inningNum][i] == player){
-        // console.log("inningNum: " + inningNum + " - i: " + i);
-        // console.log($scope.printInnings[inningNum][i]);
         return true;
       }
     }
     return false;
   }
 
+
+  //--------------------------------------------Build Lineups---------------------------------------------
   $scope.buildLineups = function(){
     //Reset and rebuild inning display header
     $scope.numInningsColumns=[];
