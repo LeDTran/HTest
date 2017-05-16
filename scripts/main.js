@@ -214,7 +214,7 @@ app.controller('lineupController', function($scope) {
     return false;
   }
 
-  //For the position specified, looks in each inning for an empty spot not already assigned to a player
+  //For position specified, looks in each inning for an empty spot not already assigned to a player
   //Returns inning number if empty position found, else return -1
   $scope.checkLineupSpot = function(pos){
     for(var i = 0; i <$scope.numInnings; i++){
@@ -235,6 +235,37 @@ app.controller('lineupController', function($scope) {
     }
     return false;
   }
+
+  //--------------------------------------------Fill In Empty Spots---------------------------------------------
+
+  $scope.fillEmpty = function(){
+    for(var i = 0; i < $scope.numInnings; i++){
+      for(var j = 0; j < $scope.players.length; j++){
+        if($scope.printInnings[i][j]==false){
+          //console.log($scope.printInnings[i][j] + " " + i + " " + j);
+          $scope.printInnings[i][j] = $scope.getValidPlayer();
+        }
+      }
+    }
+  }
+
+  $scope.getValidPlayer = function(){
+    for(int i = 0; i < $scope.players.length; i++){
+      if($scope.checkConditions(player[i])==true){
+        return player[i];
+      }
+    }
+  }
+
+  $scope.checkConditions(player) =function(){
+    var stillValid = false;
+
+    return stillValid;
+
+  }
+
+  //--------------------------------------------Extra Conditions Checks---------------------------------------------
+
 
 
   //--------------------------------------------Build Lineups---------------------------------------------
@@ -257,6 +288,8 @@ app.controller('lineupController', function($scope) {
     if($scope.ruleMPR){
       $scope.MPRInitialize();
     }
+
+    $scope.fillEmpty();
 
     $scope.printPositions = getPrintPositions();
 
