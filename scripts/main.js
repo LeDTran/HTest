@@ -20,8 +20,8 @@ app.controller('lineupController', function($scope) {
   $scope.numInningsColumns=[];
   $scope.inningPitchSelect = ['None',1,2,3,4,5,6];
 
-  $scope.printInnings=[];
-  $scope.printPositions=[];
+  $scope.printInnings=[];       //In process lineup
+  $scope.printPositions=[];     //Final lineup for display purposes
   $scope.page = 'editRoster';
 
   $scope.benchLabels=[];
@@ -31,6 +31,7 @@ app.controller('lineupController', function($scope) {
   //MPR = Minimum Play Rules
   $scope.ruleMPR = true; 
 
+  //----------------------UI Functions for HTML/Angular----------------------
   $scope.addNewPlayer = function() {
         console.log($scope.numInnings);
 
@@ -62,30 +63,6 @@ app.controller('lineupController', function($scope) {
     }
   }
 
-  function getCurrInning(group1, group2, group3){
-    var currInning = [];
-
-    currInning.push(group1[0]);
-    currInning.push(group1[1]);
-    currInning.push(group2[0]);
-    currInning.push(group2[1]);
-    currInning.push(group3[0]);
-    currInning.push(group3[1]);
-
-    currInning.push(group1[2]);
-    currInning.push(group2[2]);
-    currInning.push(group3[2]);
-
-    $scope.printInnings.push(currInning);
-  }
-
-  function rotateGroup(currGroup){
-    currGroup.push(currGroup[0]);
-    currGroup.shift();
-    return currGroup;
-  }
-
-  //----------------------UI Functions for HTML/Angular----------------------
   $scope.displayLineup = function(){
     // console.log("GO TO DISPLAY");
     $scope.page = 'displayLineup';
@@ -103,16 +80,12 @@ app.controller('lineupController', function($scope) {
   }
 
   $scope.fixPreferAvoid = function(state, pos, playerIndex){
-    console.log("FUCK" + playerIndex);
-    console.log(state);
-
     if(state=='prefer'){
       if($scope.players[playerIndex].posPrefer[pos]==false && $scope.players[playerIndex].posAvoid[pos]==true){
         $scope.players[playerIndex].posAvoid[pos]=false;
       }
     }
     if(state=='avoid'){
-      console.log("AVOID: " + state + pos);
       if($scope.players[playerIndex].posAvoid[pos]==false && $scope.players[playerIndex].posPrefer[pos]==true){
         $scope.players[playerIndex].posPrefer[pos]=false;
       }
@@ -130,7 +103,6 @@ app.controller('lineupController', function($scope) {
   $scope.checkInningPitch = function(playerIndex){
     for(var i = 0; i < $scope.players.length; i++){
       if(i!=playerIndex){
-        console.log($scope.players[i].inningPitch + " " + $scope.players[playerIndex].inningPitch);
         if($scope.players[i].inningPitch == $scope.players[playerIndex].inningPitch){
           $scope.players[i].inningPitch = 'None';
         }
@@ -141,14 +113,12 @@ app.controller('lineupController', function($scope) {
   //--------------------------------------------Reclear Lineup---------------------------------------------
   //Empties out and refreshes inning positions, to be used for new lineup
   //Returns inningNum x numPlayers matrix of FALSE values
-
   $scope.reclearLineup = function(){
     var newLineup = [];
     console.log(newLineup);
 
     for(var j = 0; j < $scope.numInnings; j++){
       var posPerInning = [];
-      //-------------------------------------------------------------------------->change this to numplayers later
       for(var i = 0; i < $scope.players.length; i++){    
         posPerInning.push(false);
       }
@@ -162,6 +132,7 @@ app.controller('lineupController', function($scope) {
 
   //printInnings filled in as array of inning array
   //Needs to be reorderd as array of position array, for proper display on html
+  //Otherwise issues with dupes?
   function getPrintPositions(){
     var currPosition = [];
     var allPosition = [];
@@ -259,10 +230,7 @@ app.controller('lineupController', function($scope) {
     return -1;
   }
 
-
-
   //--------------------------------------------Fill In Empty Spots---------------------------------------------
-
     $scope.assignPitchers = function(){
 
       var array = [1,2,3,4,5,6];
@@ -273,7 +241,6 @@ app.controller('lineupController', function($scope) {
         }
       }
     }
-
 
   $scope.fillEmpty = function(){
 
@@ -290,7 +257,6 @@ app.controller('lineupController', function($scope) {
     $scope.fillBenches();
   }
 
-  //var i = $scope.players.length-1; i >= 0; i--
   $scope.getValidPlayer = function(inningNum, pos){
     //Test players that prefer this position
     for(var i = 0; i < $scope.players.length; i++){
@@ -322,6 +288,7 @@ app.controller('lineupController', function($scope) {
     return false;
   }
 
+  //MAIN FUNCTION FOR CONDITION CHECKING---------------------->
   //Tests a player against conditions, position, and inning 
   //Returns true if passes all, else false if fails even one condition
   $scope.checkConditions =function(player, inningNum, pos){
@@ -343,6 +310,9 @@ app.controller('lineupController', function($scope) {
     return stillValid;
   }
 
+  //After assigning players to positions each inning
+  //fill in bench positions, in order to display on page
+  //Might be useful later for bench related conditions...?
   $scope.fillBenches = function(){
     $scope.numBenches = $scope.players.length-9;
 
@@ -386,8 +356,6 @@ app.controller('lineupController', function($scope) {
     }
     else return false;
   }
-
-
 
   //--------------------------------------------Build Lineups---------------------------------------------
   $scope.buildLineups = function(){
