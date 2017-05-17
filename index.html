@@ -14,12 +14,11 @@
     <div ng-switch on="page">
       <div ng-switch-when="editRoster">
         <h1><img src="images/The_Harker_School_Logo.jpg" style="width:100px;height:100;">Build Your Roster</h1>
-        *Note* Players higher on the list will be have their preferences more prioritized <br><br>
         <div data-ng-repeat="player in players track by $index">
           <input id="playerName" type="text" ng-model="player.name" name="" placeholder="">
 
           <div id="inningPitch">
-            <b>Inning to Pitch:</b> <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect"></select><br>
+            <b>Inning to Pitch:</b> <select ng-model="player.inningPitch" ng-options="n for n in inningPitchSelect" ng-change="checkInningPitch($index)"></select><br>
           </div>
 
           <div id="preferDiv">
@@ -75,9 +74,9 @@
         <input type="radio" id="rule2" checked="checked">Rule 2: Players cannot play in the same position for more than two times in a game<br>
 
         <h2>Optional Roster Rules</h2>
-        <input type="checkbox"checked="checked">No more than two innnings on bench<br>
-        <input type="checkbox"checked="checked">No innings consecutively on bench<br>
-        <input type="checkbox"checked="checked">No inings consecutively in outfield<br>
+        <input type="checkbox">No more than two innnings on bench<br>
+        <input type="checkbox">No innings consecutively on bench<br>
+        <input type="checkbox">No innings consecutively in outfield<br>
         <button id="lineupButton" ng-click="buildLineups()"><b>Build Your Lineups
       </div>
       <!-- END ng-switch editRoster  -->
@@ -112,7 +111,11 @@
             <tr>
               <th><b>Right Field</b></th>
             </tr>
+            <tr ng-repeat="benches in benchLabels">
+              <th id="benchLabels"><b>{{benches[0]}}</b></th>
+            </tr >
           </table>
+
           <table id="listPlayers">
             <tr>
               <th ng-repeat="inningNum in numInningsColumns">
@@ -120,12 +123,17 @@
               </th>
            </tr>
 
-           <tr ng-repeat="y in printPositions">
-            <td ng-repeat="player in y track by $index">
-              {{player.name}} -
-            </td>
-          </th>
-           </tr>
+            <tr ng-repeat="y in printPositions | limitTo:9:3">
+              <td ng-repeat="player in y track by $index">
+                {{player.name}} &nbsp
+              </td>
+            </tr>
+
+            <tr ng-repeat="y in printPositions | limitTo:-numBenches">
+              <td id="benchPlayers" ng-repeat="player in y track by $index">
+                {{player.name}} &nbsp
+              </td>
+            </tr>
           </table>
 
           <br><br>

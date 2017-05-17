@@ -1,3 +1,7 @@
+//Still figuring out preference assignment. Right now, assigns mpr, 
+//then for each remaining slot finds a viable player. 
+//Going to try inverse: for each player, find empty slot that will satisfy preference
+
 //application modules
 var app = angular.module('app', ['ngAnimate']);
 
@@ -20,6 +24,9 @@ app.controller('lineupController', function($scope) {
   $scope.printPositions=[];
   $scope.page = 'editRoster';
 
+  $scope.benchLabels=[];
+  $numBenches = 0;
+
   //----------------------Rules/Conditions----------------------
   //MPR = Minimum Play Rules
   $scope.ruleMPR = true; 
@@ -32,9 +39,16 @@ app.controller('lineupController', function($scope) {
     }
 
     else{
-      var newPlayer = new Player("New Player Name");
+      var playerNum = $scope.players.length+1;
+      var newPlayer = new Player("P" + playerNum + " New Player Name");
       $scope.players.push(newPlayer);
+
+      var myBench = 'Bench';
+      $scope.benchLabels.push([myBench]);
     }
+
+
+    console.log($scope.benchLabels);
   }
 
   $scope.removePlayer = function(playerIndex){
@@ -43,6 +57,8 @@ app.controller('lineupController', function($scope) {
     }
     else{
       $scope.players.splice(playerIndex, 1);
+      var myBench = 'Bench';
+      $scope.benchLabels.pop([myBench]);
     }
   }
 
@@ -109,8 +125,17 @@ app.controller('lineupController', function($scope) {
     document.getElementById("rule2").disabled = !state;
   }
 
-  $scope.refreshPositions = function(){
-
+  //If player is assigned inning to pitch, but prev player already assigned that inning
+  //then overwrites prev player
+  $scope.checkInningPitch = function(playerIndex){
+    for(var i = 0; i < $scope.players.length; i++){
+      if(i!=playerIndex){
+        console.log($scope.players[i].inningPitch + " " + $scope.players[playerIndex].inningPitch);
+        if($scope.players[i].inningPitch == $scope.players[playerIndex].inningPitch){
+          $scope.players[i].inningPitch = 'None';
+        }
+      }
+    }
   }
 
   //--------------------------------------------Reclear Lineup---------------------------------------------
@@ -124,7 +149,7 @@ app.controller('lineupController', function($scope) {
     for(var j = 0; j < $scope.numInnings; j++){
       var posPerInning = [];
       //-------------------------------------------------------------------------->change this to numplayers later
-      for(var i = 0; i < 9; i++){    
+      for(var i = 0; i < $scope.players.length; i++){    
         posPerInning.push(false);
       }
       newLineup.push(posPerInning);
@@ -182,7 +207,6 @@ app.controller('lineupController', function($scope) {
     }
 
     for(var pos=posStart; pos<posEnd; pos++){
-      console.log(player.name + " ASSIGNFIELD1");
       if(player.posPrefer[pos]==true){
         console.log(pos);
         if($scope.chooseByPreference(player, pos)== true){
@@ -262,8 +286,11 @@ app.controller('lineupController', function($scope) {
         }
       }
     }
+
+    $scope.fillBenches();
   }
 
+  //var i = $scope.players.length-1; i >= 0; i--
   $scope.getValidPlayer = function(inningNum, pos){
     //Test players that prefer this position
     for(var i = 0; i < $scope.players.length; i++){
@@ -316,6 +343,23 @@ app.controller('lineupController', function($scope) {
     return stillValid;
   }
 
+  $scope.fillBenches = function(){
+    $scope.numBenches = $scope.players.length-9;
+
+    if($scope.players.length>9){
+      for(var benchPos = 9; benchPos < $scope.players.length; benchPos++){
+        for(var i = 0; i<$scope.numInnings; i++){
+          for(var j = 0; j < $scope.players.length;j++){
+            if($scope.checkInningRepeat($scope.players[j], i) == false){
+              console.log($scope.players[j]);
+              $scope.printInnings[i][benchPos] = $scope.players[j];
+            }
+          }
+        }
+      }
+    }
+  }
+
   //--------------------------------------------Conditions Checks---------------------------------------------
 
   //Returns true if player already assigned to that inning.
@@ -362,9 +406,7 @@ app.controller('lineupController', function($scope) {
     console.log(temp);
     $scope.printInnings = temp;
 
-
-
-    //$scope.assignPitchers();
+    $scope.assignPitchers();
 
     if($scope.ruleMPR==true){
       $scope.MPRInitialize();
@@ -375,6 +417,8 @@ app.controller('lineupController', function($scope) {
     $scope.printPositions = getPrintPositions();
 
     $scope.displayLineup();
+    console.log($scope.benchLabels);
+
   }
 
 });

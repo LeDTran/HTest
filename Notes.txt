@@ -1,0 +1,30 @@
+//Still figuring out preference assignment. Right now, assigns mpr, 
+//then for each remaining slot finds a viable player. 
+//Going to try inverse: for each player, find empty slot that will satisfy preference
+
+//Does not yet do checks for three additional rules
+//However theoretically, the way the code it structured, it would be relatively easy
+//to incorporate these rules and other additional rules without ruining flow of code
+//
+//After MPR is done, checks to determine viable players for empty spots are done independently
+
+//Right now, 
+
+
+Fixes since last time: 
+  -MPR fully implemented even considering preferences
+    -Works for certain sets of players preferences. Still buggy. Certain other preference sets will end up with deadlocks with empty positions
+    -Need to develop swap algorithm if that happens??
+
+//-Prefer/Avoid position checkmarks will autocorrect if both selected for same position
+//-Allow set inning to pitch, and will autocorrect if two players pitch same inning
+//  -POTENTIAL ISSUE?: Right now can only manually select player to pitch 1 round
+//  -If want to pitch more than 1 round, would have to set as preference and let algorithm set
+//  -Otherwise no way to manually set 2+ rounds of pitching. Keep this or no?
+//    -For manually set multiple inning pitch, would have to redesign UI a bit
+
+
+Need implement:
+->player movement up down????
+        *Note* Players higher on the list are more pri <br><br>
+

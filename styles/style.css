@@ -2,12 +2,11 @@
 /*LOOOOOOK UP class vs id*/
 /*IMPORTANT!!!!! classes need to be before id selectors*/
 body {
-    font: normal 12px "Comic Sans MS", cursive, sans-serif;  
-    background-color: 
+    font: normal 12px "Arial", cursive, sans-serif;  
 }
 
 h1{
-    font: normal 50px "Comic Sans MS", cursive, sans-serif;
+    font: normal 50px "Arial", cursive, sans-serif;
     color: #1F681B;
 }
 
@@ -34,7 +33,7 @@ th{
   text-align: left;
   padding:2px;
   border: 2px solid black;
-  font: normal 12px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Arial", cursive, sans-serif;
 }
 
 td{
@@ -45,13 +44,13 @@ td{
   padding-top: 4px;
   border-bottom: 1px solid grey;
 
-  font: normal 12px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Arial", cursive, sans-serif;
 }
 
 select{
   border: 2px solid black;
   background:none; 
-  font: normal 12px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Arial", cursive, sans-serif;
   padding-left:5px; 
   padding-right:5px; 
 }
@@ -61,7 +60,7 @@ select{
   background:none; 
   padding-left-right:2px;
 
-  font: normal 12px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Arial", cursive, sans-serif;
   width: 60px;
 }
 
@@ -70,7 +69,7 @@ select{
   border: 2px solid black; 
   padding:10px;
 
-  font: normal 12 "Comic Sans MS", cursive, sans-serif;
+  font: normal 12 "Arial", cursive, sans-serif;
 
   vertical-align: top;
   display: inline-block;
@@ -90,7 +89,7 @@ select{
   background:none; 
   padding-left-right:2px;
 
-  font: normal 12px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Arial", cursive, sans-serif;
   color: #DF1B1B;
 
   vertical-align: top;
@@ -133,7 +132,7 @@ select{
   background:none; 
   color:#41822A;
   padding:10px;
-  font: normal 12px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Arial", cursive, sans-serif;
 }
 
 
@@ -142,7 +141,7 @@ select{
   background:none; 
   padding:10px;
 
-  font: normal 12px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Arial", cursive, sans-serif;
   margin-left: 840px;
   margin-bottom: 50px;
 }
@@ -158,9 +157,30 @@ select{
 }
 
 
+#benchLabels{
+  font-weight: bold;
+  color: #A4A4A4;
+  text-align: left;
+  padding:2px;
+  border: 2px solid #A4A4A4;
+  font: normal 12px "Arial", cursive, sans-serif;
+}
+
 #listPlayers{
   display:inline-block;
   margin-left: 0;
+}
+
+#benchPlayers{
+  color: #A4A4A4;
+  text-align: left;
+  padding: 3px;
+  margin-left:1px; 
+  margin-right:1px;
+  padding-top: 4px;
+  border-bottom: 1px solid #A4A4A4;
+
+  font: normal 12px "Arial", cursive, sans-serif;
 }
 
 #editRosterButton{
@@ -169,7 +189,7 @@ select{
   padding:10px;
   display: block;
 
-  font: normal 12px "Comic Sans MS", cursive, sans-serif;
+  font: normal 12px "Arial", cursive, sans-serif;
   margin-bottom: 20px;
   margin-left: 475px;
 }
