@@ -124,7 +124,7 @@ app.controller('lineupController', function($scope) {
     for(var j = 0; j < $scope.numInnings; j++){
       var posPerInning = [];
       //-------------------------------------------------------------------------->change this to numplayers later
-      for(var i = 0; i < $scope.players.length; i++){    
+      for(var i = 0; i < 9; i++){    
         posPerInning.push(false);
       }
       newLineup.push(posPerInning);
@@ -159,12 +159,13 @@ app.controller('lineupController', function($scope) {
     for(var i = 0; i < $scope.players.length; i++){
       $scope.assignField('infield',$scope.players[i]);          
     }
-    for(var i = 0; i < $scope.players.length; i++){  
-      $scope.assignField('infield',$scope.players[i]);              
-    }
     for(var i = 0; i < $scope.players.length; i++){
       $scope.assignField('outfield',$scope.players[i]);       
     }
+    for(var i = 0; i < $scope.players.length; i++){  
+      $scope.assignField('infield',$scope.players[i]);              
+    }
+
   }
 
   //Assigns player to positions based on preferences 
@@ -208,24 +209,9 @@ app.controller('lineupController', function($scope) {
     }
   }
 
-
-
-  //right now looks for empty inning given position, reurns inning, then checks if repeat inning
-  //but then next step would be to check next innning with empty spot
-
   //Given player and potential position, returns true if successfully finds 
   //an inning with that position open, and assigns the player to it
   $scope.chooseByPreference = function(player, pos){
-    // console.log(player.name + "CHOOSEBYPREFFFIELD");
-
-    // potentialInning = $scope.checkLineupSpot(pos);
-    // if(potentialInning != -1){
-    //   if($scope.checkInningRepeat(player, potentialInning)==false){
-    //     $scope.printInnings[potentialInning][pos] = player;
-    //     return true;
-    //   }
-    // }
-
     for(var potentialInning = 0; potentialInning<$scope.numInnings; potentialInning++){
       if($scope.printInnings[potentialInning][pos] == false){
         if($scope.checkInningRepeat(player, potentialInning)==false){
@@ -252,6 +238,18 @@ app.controller('lineupController', function($scope) {
 
 
   //--------------------------------------------Fill In Empty Spots---------------------------------------------
+
+    $scope.assignPitchers = function(){
+
+      var array = [1,2,3,4,5,6];
+
+      for(var i = 0; i < $scope.players.length; i++){
+        if($scope.players[i].inningPitch != 'None'){
+          $scope.printInnings[$scope.players[i].inningPitch-1][0] = $scope.players[i];
+        }
+      }
+    }
+
 
   $scope.fillEmpty = function(){
 
@@ -364,11 +362,15 @@ app.controller('lineupController', function($scope) {
     console.log(temp);
     $scope.printInnings = temp;
 
+
+
+    //$scope.assignPitchers();
+
     if($scope.ruleMPR==true){
       $scope.MPRInitialize();
     }
 
-    //$scope.fillEmpty();
+    $scope.fillEmpty();
 
     $scope.printPositions = getPrintPositions();
 
