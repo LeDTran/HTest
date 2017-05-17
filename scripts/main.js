@@ -242,26 +242,32 @@ app.controller('lineupController', function($scope) {
     for(var i = 0; i < $scope.numInnings; i++){
       for(var j = 0; j < $scope.players.length; j++){
         if($scope.printInnings[i][j]==false){
-          //console.log($scope.printInnings[i][j] + " " + i + " " + j);
-          $scope.printInnings[i][j] = $scope.getValidPlayer();
+          $scope.printInnings[i][j] = $scope.getValidPlayer(i,j);
         }
       }
     }
   }
 
-  $scope.getValidPlayer = function(){
-    for(int i = 0; i < $scope.players.length; i++){
-      if($scope.checkConditions(player[i])==true){
-        return player[i];
+  $scope.getValidPlayer = function(inningNum, pos){
+    for(var i = 0; i < $scope.players.length; i++){
+      if($scope.checkConditions($scope.players[i], inningNum, pos)==true){
+        return $scope.players[i];
       }
     }
+    return false;
   }
 
-  $scope.checkConditions(player) =function(){
-    var stillValid = false;
+  //Tests a player against conditions, position, and inning 
+  //Returns true if passes all, else false if fails even one condition
+  $scope.checkConditions =function(player, inningNum, pos){
+    var stillValid = true;
+
+    //Check if player already assigned to that inning
+    if($scope.checkInningRepeat(player, inningNum)==true){
+      stillValid = false;
+    }
 
     return stillValid;
-
   }
 
   //--------------------------------------------Extra Conditions Checks---------------------------------------------
