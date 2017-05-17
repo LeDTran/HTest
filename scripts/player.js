@@ -23,7 +23,7 @@ var initializePlayers = function(){
     myPlayers.push(p1);
 
     var p2 = new Player('P2 Jim');
-    p2.posPrefer=[true,false,true,false,true,false,true,true,true];
+    p2.posPrefer=[false,false,false,false,false,false,false,false,true];
     p2.posAvoid=[false,false,false,false,false,false,false,false,false];
     myPlayers.push(p2);
 
@@ -68,6 +68,60 @@ var initializePlayers = function(){
     p9.posAvoid=[false,false,false,false,false,false,false,false,false];
 
     myPlayers.push(p9);
+
+    //--------------------------------------------------------------------------------
+    // var p1 = new Player('P1 Sally');
+    // p1.posPrefer=[false,false,false,false,false,false,true,true,true];
+    // p1.posAvoid=[false,false,false,false,false,false,false,false,false];
+
+    // myPlayers.push(p1);
+
+    // var p2 = new Player('P2 Jim');
+    // p2.posPrefer=[false,false,false,false,false,false,false,false,false];
+    // p2.posAvoid=[false,false,false,false,false,false,false,false,false];
+    // myPlayers.push(p2);
+
+    // var p3 = new Player('P3 Mike');
+    // p3.posPrefer=[false,false,false,false,false,false,false,false,false];
+    // p3.posAvoid=[false,false,false,false,false,false,false,false,false];
+
+    // myPlayers.push(p3);
+
+    // var p4 = new Player('P4 Lucy');
+    // p4.posPrefer=[false,false,false,false,false,false,false,false,false];
+    // p4.posAvoid=[false,false,false,false,false,false,false,false,false];
+
+    // myPlayers.push(p4);
+
+    // var p5 = new Player('P5 Nathan');
+    // p5.posPrefer=[false,false,false,false,false,false,false,false,false];
+    // p5.posAvoid=[false,false,false,false,false,false,false,false,false];
+
+    // myPlayers.push(p5);
+
+    // var p6 = new Player('P6 Clarissa');
+    // p6.posPrefer=[false,false,false,false,false,false,false,false,false];
+    // p6.posAvoid=[false,false,false,false,false,false,false,false,false];
+
+    // myPlayers.push(p6);
+
+    // var p7 = new Player('P7 Chang');
+    // p7.posPrefer=[false,false,false,false,false,false,false,false,false];
+    // p7.posAvoid=[false,false,false,false,false,false,false,false,false];
+
+    // myPlayers.push(p7);
+    
+    // var p8 = new Player('P8 Esperanza');
+    // p8.posPrefer=[false,false,false,false,false,false,false,false,false];
+    // p8.posAvoid=[false,false,false,false,false,false,false,false,false];
+
+    // myPlayers.push(p8);
+
+    // var p9 = new Player('P9 Sukimoto');
+    // p9.posPrefer=[false,false,false,false,false,false,false,false,false];
+    // p9.posAvoid=[false,false,false,false,false,false,false,false,false];
+
+    // myPlayers.push(p9);
 
     return myPlayers;
 }

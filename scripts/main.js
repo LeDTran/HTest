@@ -109,6 +109,10 @@ app.controller('lineupController', function($scope) {
     document.getElementById("rule2").disabled = !state;
   }
 
+  $scope.refreshPositions = function(){
+
+  }
+
   //--------------------------------------------Reclear Lineup---------------------------------------------
   //Empties out and refreshes inning positions, to be used for new lineup
   //Returns inningNum x numPlayers matrix of FALSE values
@@ -120,7 +124,7 @@ app.controller('lineupController', function($scope) {
     for(var j = 0; j < $scope.numInnings; j++){
       var posPerInning = [];
       //-------------------------------------------------------------------------->change this to numplayers later
-      for(var i = 0; i < 9; i++){    
+      for(var i = 0; i < $scope.players.length; i++){    
         posPerInning.push(false);
       }
       newLineup.push(posPerInning);
@@ -153,7 +157,7 @@ app.controller('lineupController', function($scope) {
   //Assigns 2 outfield and 1 infield positions for each player
   $scope.MPRInitialize = function(){
     for(var i = 0; i < $scope.players.length; i++){
-      $scope.assignField('infield',$scope.players[i]);         
+      $scope.assignField('infield',$scope.players[i]);          
     }
     for(var i = 0; i < $scope.players.length; i++){  
       $scope.assignField('infield',$scope.players[i]);              
@@ -176,39 +180,58 @@ app.controller('lineupController', function($scope) {
       var posEnd = 9;
     }
 
-    for(var i=posStart; i<posEnd; i++){
-      if(player.posPrefer[i]==true){
-        if($scope.chooseByPreference(player, i)== true){
+    for(var pos=posStart; pos<posEnd; pos++){
+      console.log(player.name + " ASSIGNFIELD1");
+      if(player.posPrefer[pos]==true){
+        console.log(pos);
+        if($scope.chooseByPreference(player, pos)== true){
           return;
         }
       }
     }
 
-    for(var i=posStart; i<posEnd; i++){
-      if(player.posPrefer[i]==false && player.posAvoid[i]==false){
-        if($scope.chooseByPreference(player, i)== true){
+    for(var pos=posStart; pos<posEnd; pos++){
+      // console.log(player.name + " ASSIGNFIELD2");
+      if(player.posPrefer[pos]==false && player.posAvoid[pos]==false){
+        if($scope.chooseByPreference(player, pos)== true){
           return;
         }
       }
     }    
 
-    for(var i=posStart; i<posEnd; i++){
-      if(player.posAvoid[i]==true){
-        if($scope.chooseByPreference(player, i)== true){
+    for(var pos=posStart; pos<posEnd; pos++){
+      if(player.posAvoid[pos]==true){
+        if($scope.chooseByPreference(player, pos)== true){
           return;
         }
       } 
     }
   }
 
-  //Given player and i=potential position, returns true if successfully finds 
+
+
+  //right now looks for empty inning given position, reurns inning, then checks if repeat inning
+  //but then next step would be to check next innning with empty spot
+
+  //Given player and potential position, returns true if successfully finds 
   //an inning with that position open, and assigns the player to it
-  $scope.chooseByPreference = function(player, i){
-    potentialInning = $scope.checkLineupSpot(i);
-    if(potentialInning != -1){
-      if($scope.checkInningRepeat(player, potentialInning)==false){
-        $scope.printInnings[potentialInning][i] = player;
-        return true;
+  $scope.chooseByPreference = function(player, pos){
+    // console.log(player.name + "CHOOSEBYPREFFFIELD");
+
+    // potentialInning = $scope.checkLineupSpot(pos);
+    // if(potentialInning != -1){
+    //   if($scope.checkInningRepeat(player, potentialInning)==false){
+    //     $scope.printInnings[potentialInning][pos] = player;
+    //     return true;
+    //   }
+    // }
+
+    for(var potentialInning = 0; potentialInning<$scope.numInnings; potentialInning++){
+      if($scope.printInnings[potentialInning][pos] == false){
+        if($scope.checkInningRepeat(player, potentialInning)==false){
+          $scope.printInnings[potentialInning][pos] = player;
+          return true;
+        }
       }
     }
     return false;
@@ -219,27 +242,22 @@ app.controller('lineupController', function($scope) {
   $scope.checkLineupSpot = function(pos){
     for(var i = 0; i <$scope.numInnings; i++){
       if($scope.printInnings[i][pos] == false){
+        // console.log("EMPTY " + i);
         return i;
       }
     }
     return -1;
   }
 
-  //Returns true if player already assigned to that inning.
-  //Used to prevent a player being assigned twice in one inning
-  $scope.checkInningRepeat = function(player, inningNum){
-    for(var i = 0; i < $scope.printInnings[0].length; i++){
-      if($scope.printInnings[inningNum][i] == player){
-        return true;
-      }
-    }
-    return false;
-  }
+
 
   //--------------------------------------------Fill In Empty Spots---------------------------------------------
 
   $scope.fillEmpty = function(){
+
+    //For each inning
     for(var i = 0; i < $scope.numInnings; i++){
+      //For each position
       for(var j = 0; j < $scope.players.length; j++){
         if($scope.printInnings[i][j]==false){
           $scope.printInnings[i][j] = $scope.getValidPlayer(i,j);
@@ -249,11 +267,33 @@ app.controller('lineupController', function($scope) {
   }
 
   $scope.getValidPlayer = function(inningNum, pos){
+    //Test players that prefer this position
     for(var i = 0; i < $scope.players.length; i++){
-      if($scope.checkConditions($scope.players[i], inningNum, pos)==true){
-        return $scope.players[i];
+      if($scope.players[i].posPrefer[pos]==true){
+        if($scope.checkConditions($scope.players[i], inningNum, pos)==true){
+          return $scope.players[i];
+        }
       }
     }
+
+    //Test players that are neutral with this position
+    for(var i = 0; i < $scope.players.length; i++){
+      if($scope.players[i].posPrefer[pos]==false && $scope.players[i].posAvoid[pos]==false){
+        if($scope.checkConditions($scope.players[i], inningNum, pos)==true){
+          return $scope.players[i];
+        }
+      }
+    }
+
+    //Test players that avoid this position
+    for(var i = 0; i < $scope.players.length; i++){
+      if($scope.players[i].posAvoid[pos]==true){
+        if($scope.checkConditions($scope.players[i], inningNum, pos)==true){
+          return $scope.players[i];
+        }
+      }
+    }
+
     return false;
   }
 
@@ -267,10 +307,43 @@ app.controller('lineupController', function($scope) {
       stillValid = false;
     }
 
+    if($scope.ruleMPR==true){
+      if($scope.checkPositionRepeat(player, pos, 2)==true){
+        stillValid = false;
+      }
+    }
+
+    //
+
     return stillValid;
   }
 
-  //--------------------------------------------Extra Conditions Checks---------------------------------------------
+  //--------------------------------------------Conditions Checks---------------------------------------------
+
+  //Returns true if player already assigned to that inning.
+  //Used to prevent a player being assigned twice in one inning
+  $scope.checkInningRepeat = function(player, inningNum){
+    for(var i = 0; i < $scope.printInnings[0].length; i++){
+      if($scope.printInnings[inningNum][i] == player){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  //Returns true if player has been assigned position X times already
+  $scope.checkPositionRepeat = function(player, pos, timesAssigned){
+    var alreadyAssigned = 0;
+    for(var i=0; i < $scope.numInnings; i++){
+      if($scope.printInnings[i][pos]==player){
+        alreadyAssigned++;
+      }
+    }
+    if(alreadyAssigned>=timesAssigned){
+      return true;
+    }
+    else return false;
+  }
 
 
 
@@ -291,11 +364,11 @@ app.controller('lineupController', function($scope) {
     console.log(temp);
     $scope.printInnings = temp;
 
-    if($scope.ruleMPR){
+    if($scope.ruleMPR==true){
       $scope.MPRInitialize();
     }
 
-    $scope.fillEmpty();
+    //$scope.fillEmpty();
 
     $scope.printPositions = getPrintPositions();
 
